@@ -381,7 +381,7 @@ new_client () {
 if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	apt install at
 	clear
-	echo 'Alparslanyň OpenVpn sçriptine hoş geldin dost!'
+	echo 'Alparslanyň OpenVpn skriptine hoş geldin dost!'
 	# If system has a single IPv4, it is selected automatically. Else, ask the user
 	if [[ $(ip -4 addr | grep inet | grep -vEc '127(\.[0-9]{1,3}){3}') -eq 1 ]]; then
 		ip=$(ip -4 addr | grep inet | grep -vE '127(\.[0-9]{1,3}){3}' | cut -d '/' -f 1 | grep -oE '[0-9]{1,3}(\.[0-9]{1,3}){3}')
@@ -401,7 +401,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	# If $ip is a private IP address, the server must be behind NAT
 	    echo "$ip" | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)';
 		echo
-		echo  -e "Serýeriň ${Green_background_prefix}IPsini ýada DOMENi${Font_color_suffix} giriz"
+		echo  -e "Serweriň ${Green_background_prefix}IPsini ýada DOMENi${Font_color_suffix} giriz"
 		# Get public IP and sanitize with grep
 		get_public_ip=$(grep -m 1 -oE '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' <<< "$(wget -T 10 -t 1 -4qO- "http://ip1.dynupdate.no-ip.com/" || curl -m 10 -4Ls "http://ip1.dynupdate.no-ip.com/")")
 		read -p "Public IPv4 address / hostname [$get_public_ip]: " public_ip
