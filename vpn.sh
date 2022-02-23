@@ -1764,41 +1764,41 @@ Download_SSR(){
 	wget -N --no-check-certificate "https://github.com/ToyoDAdoubiBackup/shadowsocksr/archive/manyuser.zip"
 	#git config --global http.sslVerify false
 	#env GIT_SSL_NO_VERIFY=true git clone -b manyuser https://github.com/ToyoDAdoubiBackup/shadowsocksr.git
-	#[[ ! -e ${ssr_folder} ]] && echo -e "${Error} ShadowsocksR服务端 下载失败 !" && exit 1
-	[[ ! -e "manyuser.zip" ]] && echo -e "${Error} Не удалось скачать архив с ShadowsocksR !" && rm -rf manyuser.zip && exit 1
+	#[[ ! -e ${ssr_folder} ]] && echo -e "${Error} ShadowsocksR serwerini göçürip almak başa barmady !" && exit 1
+	[[ ! -e "manyuser.zip" ]] && echo -e "${Error} ShadowsocksR serweriden arhiw almak başa barmady !" && rm -rf manyuser.zip && exit 1
 	unzip "manyuser.zip"
-	[[ ! -e "/usr/local/shadowsocksr-manyuser/" ]] && echo -e "${Error} Ошибка распаковки ShadowsocksR !" && rm -rf manyuser.zip && exit 1
+	[[ ! -e "/usr/local/shadowsocksr-manyuser/" ]] && echo -e "${Error} ShadowsocksR serweri arhiwden çykarmak başa barmady !" && rm -rf manyuser.zip && exit 1
 	mv "/usr/local/shadowsocksr-manyuser/" "/usr/local/shadowsocksr/"
-	[[ ! -e "/usr/local/shadowsocksr/" ]] && echo -e "${Error} Переименование ShadowsocksR неуспешно !" && rm -rf manyuser.zip && rm -rf "/usr/local/shadowsocksr-manyuser/" && exit 1
+	[[ ! -e "/usr/local/shadowsocksr/" ]] && echo -e "${Error} ShadowsocksR serweriň adyny üýtgedip bolmady !" && rm -rf manyuser.zip && rm -rf "/usr/local/shadowsocksr-manyuser/" && exit 1
 	rm -rf manyuser.zip
 	cd "shadowsocksr"
 	cp "${ssr_folder}/config.json" "${config_user_file}"
 	cp "${ssr_folder}/mysql.json" "${ssr_folder}/usermysql.json"
 	cp "${ssr_folder}/apiconfig.py" "${config_user_api_file}"
-	[[ ! -e ${config_user_api_file} ]] && echo -e "${Error} Не удалось скопировать apiconfig.py для ShadowsocksR !" && exit 1
+	[[ ! -e ${config_user_api_file} ]] && echo -e "${Error} ShadowsocksR üçin apiconfig.py göçürip bolmady  !" && exit 1
 	sed -i "s/API_INTERFACE = 'sspanelv2'/API_INTERFACE = 'mudbjson'/" ${config_user_api_file}
 	server_pub_addr="127.0.0.1"
 	Modify_user_api_server_pub_addr
 	#sed -i "s/SERVER_PUB_ADDR = '127.0.0.1'/SERVER_PUB_ADDR = '${ip}'/" ${config_user_api_file}
 	sed -i 's/ \/\/ only works under multi-user mode//g' "${config_user_file}"
-	echo -e "${Info} ShadowsocksR успешно установлен !"
+	echo -e "${Info} ShadowsocksR üstünlikli ustanowka edildi !"
 }
 Service_SSR(){
 	if [[ ${release} = "centos" ]]; then
 		if ! wget --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/service/ssrmu_centos -O /etc/init.d/ssrmu; then
-			echo -e "${Error} Не удалось загрузить скрипт для управления ShadowsocksR !" && exit 1
+			echo -e "${Error} ShadowsocksR üçin skripti ýükläp bolmady!" && exit 1
 		fi
 		chmod +x /etc/init.d/ssrmu
 		chkconfig --add ssrmu
 		chkconfig ssrmu on
 	else
 		if ! wget --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/service/ssrmu_debian -O /etc/init.d/ssrmu; then
-			echo -e "${Error} Не удалось загрузить скрипт для управления ShadowsocksR !" && exit 1
+			echo -e "${Error} ShadowsocksR dolandyrmak üçin skripti ýükläp bolmady !" && exit 1
 		fi
 		chmod +x /etc/init.d/ssrmu
 		update-rc.d -f ssrmu defaults
 	fi
-	echo -e "${Info} Скрипт для управления ShadowsocksR успешно установлен !"
+	echo -e "${Info} ShadowsocksRi dolandyrmak üçin skript üstünlikli ustanowka edildi !"
 }
 
 JQ_install(){
@@ -1811,11 +1811,11 @@ JQ_install(){
 			mv "jq-linux32" "jq"
 			#wget --no-check-certificate "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32" -O ${jq_file}
 		fi
-		[[ ! -e ${jq_file} ]] && echo -e "${Error} Парсер JQ не удалось переименовать !" && exit 1
+		[[ ! -e ${jq_file} ]] && echo -e "${Error}  JQ adyny üýtgedip bolmady !" && exit 1
 		chmod +x ${jq_file}
-		echo -e "${Info} Установка JQ завершена, продолжение..." 
+		echo -e "${Info} JQ ustanowka edildi, dowamy..." 
 	else
-		echo -e "${Info} Парсер JQ успешно установлен..."
+		echo -e "${Info} JQ ustanowka edildi..."
 	fi
 }
 
@@ -1825,7 +1825,7 @@ Installation_dependency(){
 	else
 		Debian_apt
 	fi
-	[[ ! -e "/usr/bin/unzip" ]] && echo -e "${Error} Установка unzip неуспешна !" && exit 1
+	[[ ! -e "/usr/bin/unzip" ]] && echo -e "${Error} unzip ustanowka edilmedi !" && exit 1
 	Check_python
 	#echo "nameserver 8.8.8.8" > /etc/resolv.conf
 	#echo "nameserver 8.8.4.4" >> /etc/resolv.conf
@@ -1839,40 +1839,40 @@ Installation_dependency(){
 Install_SSR(){
 	clear
 	check_root
-	[[ -e ${ssr_folder} ]] && echo -e "${Error} Папка ShadowsocksR уже существует, проверьте (если установка не удалась или есть старая версия, сначала удалите) !" && exit 1
-	echo -e "${Info} Начните настраивать конфигурацию учетной записи ShadowsocksR..."
+	[[ -e ${ssr_folder} ]] && echo -e "${Error} Barlaň!! ShadowsocksR papka eýýäm bar (Eger ustanowka başa barmasa ýada köne wersiýasy bar bolsa ilki pozuň) !" && exit 1
+	echo -e "${Info} ShadowsocksR konfigrasiýasyny sazlamana başlaň..."
 	Set_user_api_server_pub_addr
 	Set_config_all
-	echo -e "${Info} Начать установку / настройку зависимостей ShadowsocksR..."
+	echo -e "${Info} Ustanowka başla / ShadowsocksRa bagly sazalama..."
 	Installation_dependency
-	echo -e "${Info} Начните загрузку / установку файла ShadowsocksR..."
+	echo -e "${Info} Ýüklemane başlaň / ShadowsocksR faýly ustanowka..."
 	Download_SSR
-	echo -e "${Info} Начать загрузку / установку служебного скрипта ShadowsocksR(init)..."
+	echo -e "${Info} Ýüklemane başla / ShadowsocksR(init) kömekçi skript..."
 	Service_SSR
-	echo -e "${Info} Начать скачивание / установку парсера JSNO JQ..."
+	echo -e "${Info} Ýüklemäne başla / JSNO JQ ustanowka..."
 	JQ_install
-	echo -e "${Info} Начните добавлять первоначальных пользователей..."
+	echo -e "${Info} Başdaky ulanyjylary goşup başlan..."
 	Add_port_user "install"
-	echo -e "${Info} Начните настройку межсетевого экрана iptables..."
+	echo -e "${Info} Iptables ekranlanan tor arabaglanyşygynyň sazlamasyna başlaň..."
 	Set_iptables
-	echo -e "${Info} Начните добавлять правила брандмауэра iptables..."
+	echo -e "${Info} Iptables Brandmaweriň düzgünlerini goşmaga başlaň..."
 	Add_iptables
-	echo -e "${Info} Начните сохранять правила брандмауэра iptables..."
+	echo -e "${Info} Iptables Brandmaweriň düzgünlerini ýatda saklap başlaň..."
 	Save_iptables
-	echo -e "${Info} Все шаги установлены, запускаем сервер ShadowsocksR..."
+	echo -e "${Info} Hemme ädimler ustanowka edildi, ShadowsocksR serweri goýberyäris..."
 	Start_SSR
 	Get_User_info "${ssr_port}"
 	View_User_info
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 	clear
 	main_menu
 }
 
 Uninstall_SSR(){
 	clear
-	[[ ! -e ${ssr_folder} ]] && echo -e "${Error} ShadowsocksR не установлен !" && exit 1
-	echo "Удалить ShadowsocksR？[y/N]" && echo
-	read -e -p "(По умолчанию: n): " unyn
+	[[ ! -e ${ssr_folder} ]] && echo -e "${Error} ShadowsocksR ustanowka edilmedi !" && exit 1
+	echo "ShadowsocksRi poz？[y/N]" && echo
+	read -e -p "(adaty ýagdaýda: n): " unyn
 	[[ -z ${unyn} ]] && unyn="n"
 	if [[ ${unyn} == [Yy] ]]; then
 		check_pid
@@ -1897,67 +1897,67 @@ Uninstall_SSR(){
 			update-rc.d -f ssrmu remove
 		fi
 		rm -rf ${ssr_folder} && rm -rf /etc/init.d/ssrmu
-		echo && echo " ShadowsocksR успешно удален !" && echo
+		echo && echo " ShadowsocksR üstünlikli ustanowka edildi !" && echo
 	else
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 	main_menu
 	fi
 }
 Check_Libsodium_ver(){
-	echo -e "${Info} Начинаю получение последней версии libsodium..."
+	echo -e "${Info} libsodium soňky wersiýasyny algama başla..."
 	Libsodiumr_ver=$(wget -qO- "https://github.com/jedisct1/libsodium/tags"|grep "/jedisct1/libsodium/releases/tag/"|head -1|sed -r 's/.*tag\/(.+)\">.*/\1/')
 	[[ -z ${Libsodiumr_ver} ]] && Libsodiumr_ver=${Libsodiumr_ver_backup}
-	echo -e "${Info} Последняя версия libsodium: ${Green_font_prefix}${Libsodiumr_ver}${Font_color_suffix} !"
+	echo -e "${Info} Libsodium soňky wersiýasy: ${Green_font_prefix}${Libsodiumr_ver}${Font_color_suffix} !"
 }
 Install_Libsodium(){
 	clear
 	if [[ -e ${Libsodiumr_file} ]]; then
-		echo -e "${Error} libsodium уже установлен, желаете перезаписать(обновить)？[y/N]"
-		read -e -p "(По умолчанию: n): " yn
+		echo -e "${Error} libsodium ozal ustanowka edilen, Obnawit etjekmi？[y/N]"
+		read -e -p "(adaty ýagdaýda: n): " yn
 		[[ -z ${yn} ]] && yn="n"
 		if [[ ${yn} == [Nn] ]]; then
-			echo "Отмена..." && exit 1
+			echo "Goýbolsun..." && exit 1
 		fi
 	else
-		echo -e "${Info} libsodium не установлен, начинаю установку..."
+		echo -e "${Info} libsodium ustanowka edilmedik, ustanowka başlaýan..."
 	fi
 	Check_Libsodium_ver
 	if [[ ${release} == "centos" ]]; then
 		yum update
-		echo -e "${Info} бла бла бла..."
+		echo -e "${Info} Şeýle şeýle şeýle..."
 		yum -y groupinstall "Development Tools"
-		echo -e "${Info} скачивание..."
+		echo -e "${Info} ýüklenilýär..."
 		#https://github.com/jedisct1/libsodium/releases/download/1.0.18-RELEASE/libsodium-1.0.18.tar.gz
 		wget  --no-check-certificate -N "https://github.com/jedisct1/libsodium/releases/download/${Libsodiumr_ver}-RELEASE/libsodium-${Libsodiumr_ver}.tar.gz"
-		echo -e "${Info} распаковка..."
+		echo -e "${Info} arhiwden çykarylýar..."
 		tar -xzf libsodium-${Libsodiumr_ver}.tar.gz && cd libsodium-${Libsodiumr_ver}
-		echo -e "${Info} установка..."
+		echo -e "${Info} ustanowka..."
 		./configure --disable-maintainer-mode && make -j2 && make install
 		echo /usr/local/lib > /etc/ld.so.conf.d/usr_local_lib.conf
 	else
 		apt-get update
-		echo -e "${Info} бла бла бла..."
+		echo -e "${Info} şeýle şeýle şeýle..."
 		apt-get install -y build-essential
-		echo -e "${Info} скачивание..."
+		echo -e "${Info} ýüklenýär..."
 		wget  --no-check-certificate -N "https://github.com/jedisct1/libsodium/releases/download/${Libsodiumr_ver}-RELEASE/libsodium-${Libsodiumr_ver}.tar.gz"
-		echo -e "${Info} распаковка..."
+		echo -e "${Info} arhiwden çykarylýar..."
 		tar -xzf libsodium-${Libsodiumr_ver}.tar.gz && cd libsodium-${Libsodiumr_ver}
-		echo -e "${Info} установка..."
+		echo -e "${Info} ustanowka..."
 		./configure --disable-maintainer-mode && make -j2 && make install
 	fi
 	ldconfig
 	cd .. && rm -rf libsodium-${Libsodiumr_ver}.tar.gz && rm -rf libsodium-${Libsodiumr_ver}
-	[[ ! -e ${Libsodiumr_file} ]] && echo -e "${Error} Установка libsodium неуспешна !" 
-	echo && echo -e "${Info} libsodium успешно установлен !" && echo
+	[[ ! -e ${Libsodiumr_file} ]] && echo -e "${Error} libsodium ustanowka edilmedi !" 
+	echo && echo -e "${Info} libsodium üstünlikli ustanowka edildi !" && echo
 }
-# Отображение информации о подключении
+# Çatylandygy barada maglumat
 debian_View_user_connection_info(){
 	clear
 	format_1=$1
 	user_info=$(python mujson_mgr.py -l)
 	user_total=$(echo "${user_info}"|wc -l)
-	[[ -z ${user_info} ]] && echo -e "${Error} Пользователь не найден !" && exit 1
+	[[ -z ${user_info} ]] && echo -e "${Error} Ulanyjy tapylmady !" && exit 1
 	IP_total=`netstat -anp |grep 'ESTABLISHED' |grep 'python' |grep 'tcp6' |awk '{print $5}' |awk -F ":" '{print $1}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" |wc -l`
 	user_list_all=""
 	for((integer = 1; integer <= ${user_total}; integer++))
@@ -1975,12 +1975,12 @@ debian_View_user_connection_info(){
 			fi
 		fi
 		user_info_233=$(python mujson_mgr.py -l|grep -w "${user_port}"|awk '{print $2}'|sed 's/\[//g;s/\]//g')
-		user_list_all=${user_list_all}"Юзер: ${Green_font_prefix}"${user_info_233}"${Font_color_suffix} Порт: ${Green_font_prefix}"${user_port}"${Font_color_suffix} Кол-во IP: ${Green_font_prefix}"${user_IP_total}"${Font_color_suffix} Подкл. юзеры: ${Green_font_prefix}${user_IP}${Font_color_suffix}\n"
+		user_list_all=${user_list_all}"Ulanyjy: ${Green_font_prefix}"${user_info_233}"${Font_color_suffix} Port: ${Green_font_prefix}"${user_port}"${Font_color_suffix} IP sany: ${Green_font_prefix}"${user_IP_total}"${Font_color_suffix} Baglanan ulanyjylar: ${Green_font_prefix}${user_IP}${Font_color_suffix}\n"
 		user_IP=""
 	done
-	echo -e "Всего пользователей: ${Green_background_prefix} "${user_total}" ${Font_color_suffix} Общее число IP адресов: ${Green_background_prefix} "${IP_total}" ${Font_color_suffix} "
+	echo -e "Bar ulanyjylar: ${Green_background_prefix} "${user_total}" ${Font_color_suffix} Umumy IP salgylaryň sany: ${Green_background_prefix} "${IP_total}" ${Font_color_suffix} "
 	echo -e "${user_list_all}"
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 	clear
 	main_menu
 }
@@ -1989,7 +1989,7 @@ centos_View_user_connection_info(){
 	format_1=$1
 	user_info=$(python mujson_mgr.py -l)
 	user_total=$(echo "${user_info}"|wc -l)
-	[[ -z ${user_info} ]] && echo -e "${Error} Пользователь не найден !" && exit 1
+	[[ -z ${user_info} ]] && echo -e "${Error} Ulanyjy tapylmady !" && exit 1
 	IP_total=`netstat -anp |grep 'ESTABLISHED' |grep 'python' |grep 'tcp' | grep '::ffff:' |awk '{print $5}' |awk -F ":" '{print $4}' |sort -u |grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}" |wc -l`
 	user_list_all=""
 	for((integer = 1; integer <= ${user_total}; integer++))
@@ -2007,12 +2007,12 @@ centos_View_user_connection_info(){
 			fi
 		fi
 		user_info_233=$(python mujson_mgr.py -l|grep -w "${user_port}"|awk '{print $2}'|sed 's/\[//g;s/\]//g')
-		user_list_all=${user_list_all}"Юзер: ${Green_font_prefix}"${user_info_233}"${Font_color_suffix} Порт: ${Green_font_prefix}"${user_port}"${Font_color_suffix} Кол-во IP: ${Green_font_prefix}"${user_IP_total}"${Font_color_suffix} Подкл. юзеры: ${Green_font_prefix}${user_IP}${Font_color_suffix}\n"
+		user_list_all=${user_list_all}"Ulanyjy: ${Green_font_prefix}"${user_info_233}"${Font_color_suffix} Port: ${Green_font_prefix}"${user_port}"${Font_color_suffix} IP sany: ${Green_font_prefix}"${user_IP_total}"${Font_color_suffix} Baglanan ulanyjylar: ${Green_font_prefix}${user_IP}${Font_color_suffix}\n"
 		user_IP=""
 	done
-	echo -e "Всего пользователей: ${Green_background_prefix} "${user_total}" ${Font_color_suffix} Всего IP адресов: ${Green_background_prefix} "${IP_total}" ${Font_color_suffix} "
+	echo -e "Bar ulanyjylar: ${Green_background_prefix} "${user_total}" ${Font_color_suffix} Umumy IP salgylar: ${Green_background_prefix} "${IP_total}" ${Font_color_suffix} "
 	echo -e "${user_list_all}"
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 	clear
 	main_menu
 }
@@ -2023,10 +2023,10 @@ View_user_connection_info(){
 	if [[ ${ssr_connection_info} == "1" ]]; then
 		View_user_connection_info_1 ""
 	elif [[ ${ssr_connection_info} == "2" ]]; then
-		echo -e "${Tip} Замечен(ipip.net)，если там больше IP адресов, может занять больше времени..."
+		echo -e "${Tip} (ipip.net) bellige alyndy，Eger IP salgy köp bolsa, köp wagt almagy mümkin ..."
 		View_user_connection_info_1 "IP_address"
 	else
-		echo -e "${Error} Введите корректный номер(1-2)" && exit 1
+		echo -e "${Error} Gerek sany saýla(1-2)" && exit 1
 	fi
 }
 View_user_connection_info_1(){
@@ -2059,34 +2059,34 @@ get_IP_address(){
 		done
 	fi
 }
-# Изменить конфигурацию пользователя
+# Ulanyjynyň Konfigurasiýasyny üýtgetmek
 Modify_port(){
 	clear
 	List_port_user
 	while true
 	do
-		echo -e "Введите порт пользователя, аккаунт которого нужно изменить"
-		read -e -p "(По умолчанию: Отмена): " ssr_port
-		[[ -z "${ssr_port}" ]] && echo -e "Отмена..." && exit 1
+		echo -e "Akkauntuny uýtgetmeli ulanyjynyň portyny saýla"
+		read -e -p "(adaty ýagdaýda: goýbolsun): " ssr_port
+		[[ -z "${ssr_port}" ]] && echo -e "Goýbolsun..." && exit 1
 		Modify_user=$(cat "${config_user_mudb_file}"|grep '"port": '"${ssr_port}"',')
 		if [[ ! -z ${Modify_user} ]]; then
 			break
 		else
-			echo -e "${Error} Введите правильный порт !"
+			echo -e "${Error} Dogry port giriz !"
 		fi
 	done
 }
-######################ДОБАВИЛ ОТ СЕБЯ##########################
+######################Özümden goşdum##########################
 List_port_user2(){
 	user_info=$(python mujson_mgr.py -l)
 	user_total=$(echo "${user_info}"|wc -l)
-	[[ -z ${user_info} ]] && echo -e "${Error} Пользователь не найден !" && exit 1
+	[[ -z ${user_info} ]] && echo -e "${Error} Ulanyjy tapylmady !" && exit 1
 	user_list_all=""
 	for((integer = 1; integer <= ${user_total}; integer++))
 	do
 		user_port=$(echo "${user_info}"|sed -n "${integer}p"|awk '{print $4}')
 		user_username=$(echo "${user_info}"|sed -n "${integer}p"|awk '{print $2}'|sed 's/\[//g;s/\]//g')
-		user_list_all=${user_list_all}"Пользователь: ${Green_font_prefix} "${user_username}"${Font_color_suffix} Порт: ${Green_font_prefix}"${user_port}"${Font_color_suffix}\n"
+		user_list_all=${user_list_all}"Ulanyjy: ${Green_font_prefix} "${user_username}"${Font_color_suffix} Port: ${Green_font_prefix}"${user_port}"${Font_color_suffix}\n"
 	done
 	echo -e ${user_list_all}
 }
@@ -2096,29 +2096,29 @@ Modify_Config(){
 	SSR_installation_status
 	echo && echo -e "
 ${Green_font_prefix}—————————————————————————————————————————————${Font_color_suffix}
- ${Green_font_prefix}0.${Font_color_suffix} Выход в главное меню
+ ${Green_font_prefix}0.${Font_color_suffix} Esasy menýuwa çykmak
 ${Green_font_prefix}—————————————————————————————————————————————${Font_color_suffix}
- ${Green_font_prefix}1.${Font_color_suffix} Добавить пользователя
- ${Green_font_prefix}2.${Font_color_suffix} Удалить пользователя
-${Green_font_prefix}—————${Font_color_suffix} Изменить конфигурацию пользователя ${Green_font_prefix}—————${Font_color_suffix}
- ${Green_font_prefix}3.${Font_color_suffix} Изменить пароль пользователя
- ${Green_font_prefix}4.${Font_color_suffix} Изменить метод шифорвания
- ${Green_font_prefix}5.${Font_color_suffix} Изменить протокол
- ${Green_font_prefix}6.${Font_color_suffix} Изменить obfs плагин
- ${Green_font_prefix}7.${Font_color_suffix} Изменить количество устройств
- ${Green_font_prefix}8.${Font_color_suffix} Изменить общий лимит скорости
- ${Green_font_prefix}9.${Font_color_suffix} Изменить лимит скорости у пользователя
-${Green_font_prefix}10.${Font_color_suffix} Изменить общий трафик
-${Green_font_prefix}11.${Font_color_suffix} Изменить запрещенные порты
-${Green_font_prefix}12.${Font_color_suffix} Изменить все конфигурации
-${Green_font_prefix}13.${Font_color_suffix} Изменить конфигурацию вручную
-${Green_font_prefix}14.${Font_color_suffix} Очистка трафика пользователей
-${Green_font_prefix}——————————————————${Font_color_suffix} Другое ${Green_font_prefix}———————————————————${Font_color_suffix}
-${Green_font_prefix}15.${Font_color_suffix} Изменить IP адрес
+ ${Green_font_prefix}1.${Font_color_suffix} Ulanyjy goşmak
+ ${Green_font_prefix}2.${Font_color_suffix} Ulanyjy pozmak
+${Green_font_prefix}—————${Font_color_suffix} Ulanyjynyň konfigurasiýasyny üýtgetmek ${Green_font_prefix}—————${Font_color_suffix}
+ ${Green_font_prefix}3.${Font_color_suffix} Ulanyjynyň parolyny üýtgetmek
+ ${Green_font_prefix}4.${Font_color_suffix} Açaryň şifrlemesini üýtgetmek
+ ${Green_font_prefix}5.${Font_color_suffix} Protokolyny üýtgetmek
+ ${Green_font_prefix}6.${Font_color_suffix} obfs plagini üýtgetmek
+ ${Green_font_prefix}7.${Font_color_suffix} Enjam sanyny uýtgetmek
+ ${Green_font_prefix}8.${Font_color_suffix} Umumy tizliginiň limitini üýtgetmek
+ ${Green_font_prefix}9.${Font_color_suffix} Ulanyjynyň tizliginiň limitini üýtgetmek
+${Green_font_prefix}10.${Font_color_suffix} Umumy trafigi üýtgetmek
+${Green_font_prefix}11.${Font_color_suffix} Gadagan edilen portlery üýtgetmek
+${Green_font_prefix}12.${Font_color_suffix} Ähli konfigurasiýalary üýtgetmek
+${Green_font_prefix}13.${Font_color_suffix} Konfigurasiýalary özüňçe üýtgetmek
+${Green_font_prefix}14.${Font_color_suffix} Ulanyjynyň trafigini arassalamak
+${Green_font_prefix}——————————————————${Font_color_suffix} Başgalar ${Green_font_prefix}———————————————————${Font_color_suffix}
+${Green_font_prefix}15.${Font_color_suffix} IP salgyny üýtgetmek
 ${Green_font_prefix}—————————————————————————————————————————————${Font_color_suffix}
  
- ${Tip} Для изменения имени пользователя и его порта используйте ручную модификацию !" && echo
-	read -e -p "Введите число: " ssr_modify
+ ${Tip} Ulanyjynyň adyny we portyny üýtgetmek üçin konfigurasiýany özüňçe üýtgede gir !" && echo
+	read -e -p "Sany saýla: " ssr_modify
 	[[ -z "${ssr_modify}" ]] && Modify_Config
 	if [[ ${ssr_modify} == "0" ]]; then
 	main_menu
@@ -2184,7 +2184,7 @@ ${Green_font_prefix}————————————————————
 List_port_user(){
 	user_info=$(python mujson_mgr.py -l)
 	user_total=$(echo "${user_info}"|wc -l)
-	[[ -z ${user_info} ]] && echo -e "${Error} Пользователь не найден !" && exit 1
+	[[ -z ${user_info} ]] && echo -e "${Error} Ulanyjy tapylmady !" && exit 1
 	user_list_all=""
 	for((integer = 1; integer <= ${user_total}; integer++))
 	do
@@ -2192,12 +2192,12 @@ List_port_user(){
 		user_username=$(echo "${user_info}"|sed -n "${integer}p"|awk '{print $2}'|sed 's/\[//g;s/\]//g')
 		Get_User_transfer "${user_port}"
 		transfer_enable_Used_233=$(echo $((${transfer_enable_Used_233}+${transfer_enable_Used_2_1})))
-		user_list_all=${user_list_all}"Пользователь: ${Green_font_prefix} "${user_username}"${Font_color_suffix} Порт: ${Green_font_prefix}"${user_port}"${Font_color_suffix} Трафик: ${Green_font_prefix}${transfer_enable_Used_2}${Font_color_suffix}\n"
+		user_list_all=${user_list_all}"Ulanyjy: ${Green_font_prefix} "${user_username}"${Font_color_suffix} Port: ${Green_font_prefix}"${user_port}"${Font_color_suffix} Trafik: ${Green_font_prefix}${transfer_enable_Used_2}${Font_color_suffix}\n"
 	done
 	Get_User_transfer_all
-	echo && echo -e "=== Всего пользователей: ${Green_background_prefix} "${user_total}" ${Font_color_suffix}"
+	echo && echo -e "=== Bar ulanyjylar: ${Green_background_prefix} "${user_total}" ${Font_color_suffix}"
 	echo -e ${user_list_all}
-	echo -e "=== Общий трафик всех пользователей: ${Green_background_prefix} ${transfer_enable_Used_233_2} ${Font_color_suffix}\n"
+	echo -e "=== Ähli ulanyjylaryň umumy trafigy: ${Green_background_prefix} ${transfer_enable_Used_233_2} ${Font_color_suffix}\n"
 }
 Add_port_user(){
 	clear
@@ -2208,9 +2208,9 @@ Add_port_user(){
 		while true
 		do
 echo -e "
- ${Green_font_prefix}1.${Font_color_suffix} Быстро (1 устройство)
- ${Green_font_prefix}2.${Font_color_suffix} С настройками"
-			read -e -p "(По умолчанию: Быстро): " howtoadd
+ ${Green_font_prefix}1.${Font_color_suffix} Çalt (1 enjam)
+ ${Green_font_prefix}2.${Font_color_suffix} Sazlamar bilen"
+			read -e -p "(adaty ýagdaýda: Çalt): " howtoadd
 			[[ -z ${howtoadd} ]] && howtoadd="1"
 			if [[ ${howtoadd} == "1" ]]; then
 				Set_config_all_fast
@@ -2220,26 +2220,26 @@ echo -e "
 				Set_config_all_fast
 			fi
 			match_port=$(python mujson_mgr.py -l|grep -w "port ${ssr_port}$")
-			[[ ! -z "${match_port}" ]] && echo -e "${Error} Порт [${ssr_port}] уже используется, выберите другой !" && exit 1
+			[[ ! -z "${match_port}" ]] && echo -e "${Error} [${ssr_port}] port ozal bar, başgasyny saýla !" && exit 1
 			match_username=$(python mujson_mgr.py -l|grep -w "user \[${ssr_user}]")
-			[[ ! -z "${match_username}" ]] && echo -e "${Error} Имя пользователя [${ssr_user}] уже используется, выберите другое !" && exit 1
+			[[ ! -z "${match_username}" ]] && echo -e "${Error} [${ssr_user}] ulanyjy ady ozal bar, başgasyny saýla !" && exit 1
 			match_add=$(python mujson_mgr.py -a -u "${ssr_user}" -p "${ssr_port}" -k "${ssr_password}" -m "${ssr_method}" -O "${ssr_protocol}" -G "${ssr_protocol_param}" -o "${ssr_obfs}" -s "${ssr_speed_limit_per_con}" -S "${ssr_speed_limit_per_user}" -t "${ssr_transfer}" -f "${ssr_forbid}"|grep -w "add user info")
 			if [[ -z "${match_add}" ]]; then
-				echo -e "${Error} Не удалось добавить пользователя ${Green_font_prefix}[Имя пользователя: ${ssr_user} , Порт: ${ssr_port}]${Font_color_suffix} "
+				echo -e "${Error} Ulanyjy goşup bolmady ${Green_font_prefix}[Ulanyjynyň ady: ${ssr_user} , Port: ${ssr_port}]${Font_color_suffix} "
 				break
 			else
 				Add_iptables
 				Save_iptables
-				echo -e "${Info} Пользователь добавлен успешно ${Green_font_prefix}[Пользователь: ${ssr_user} , Порт: ${ssr_port}]${Font_color_suffix} "
+				echo -e "${Info} Ulanyjy üstünlikli goşuldy ${Green_font_prefix}[Ulanyjy: ${ssr_user} , Port: ${ssr_port}]${Font_color_suffix} "
 				echo
-				read -e -p "Хотите продолжить настройку пользователя？[Y/n]:" addyn
+				read -e -p "Ulanyjy sazlamasyny dowam etjekmi？[Y/n]:" addyn
 				[[ -z ${addyn} ]] && addyn="y"
 				if [[ ${addyn} == [Nn] ]]; then
 					Get_User_info "${ssr_port}"
 					View_User_info1
 					break
 				else
-					echo -e "${Info} Продолжение изменения конфигурации пользователя..."
+					echo -e "${Info} Ulanyjy sazlamasy dowam edilýär..."
 				fi
 			fi
 		done
@@ -2250,48 +2250,48 @@ Del_port_user(){
 	List_port_user
 	while true
 	do
-		echo -e "Введите порт пользователя для удаления"
-		read -e -p "(По умолчанию: отмена): " del_user_port
-		[[ -z "${del_user_port}" ]] && echo -e "Отмена..." && exit 1
+		echo -e "Ulanyjy pozmak üçin portyny saýla"
+		read -e -p "(adaty ýagdaýda: goýbolsun): " del_user_port
+		[[ -z "${del_user_port}" ]] && echo -e "Goýbolsun..." && exit 1
 		del_user=$(cat "${config_user_mudb_file}"|grep '"port": '"${del_user_port}"',')
 		if [[ ! -z ${del_user} ]]; then
 			port=${del_user_port}
 			match_del=$(python mujson_mgr.py -d -p "${del_user_port}"|grep -w "delete user ")
 			if [[ -z "${match_del}" ]]; then
-				echo -e "${Error} Не удалось удалить пользователя ${Green_font_prefix}[Порт: ${del_user_port}]${Font_color_suffix} "
+				echo -e "${Error} Ulanyjyny pozup bolmady ${Green_font_prefix}[Port: ${del_user_port}]${Font_color_suffix} "
 				break
 			else
 				Del_iptables
 				Save_iptables
-				echo -e "${Info} Удаление пользователя успешно ${Green_font_prefix}[Порт: ${del_user_port}]${Font_color_suffix} "
+				echo -e "${Info} Ulanyjy üstýnlikli pozuldy ${Green_font_prefix}[Portт: ${del_user_port}]${Font_color_suffix} "
 				echo
-				read -e -p "Хотите продолжить удаление пользователей？[Y/n]: " delyn
+				read -e -p "Ulanyjy pozmany dowam etjekmi？[Y/n]: " delyn
 				[[ -z ${delyn} ]] && delyn="y"
 				if [[ ${delyn} == [Nn] ]]; then
-						read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+						read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 						clear
 						ssr_install
 					break
 				else
-					echo -e "${Info} Продолжение удаления конфигурации пользователя..."
+					echo -e "${Info} Ulanyjy pozmak dowam edilýär..."
 					Del_port_user
 				fi
 			fi
 			break
 		else
-			echo -e "${Error} Введите корректный порт !"
+			echo -e "${Error} Gerekli porty saýla !"
 		fi
 	done
 }
 Manually_Modify_Config(){
 	SSR_installation_status
 	nano ${config_user_mudb_file}
-	echo "Вы хотите перезагрузить ShadowsocksR？[Y/n]" && echo
-	read -e -p "(По умолчанию: y): " yn
+	echo "ShadowsocksR öçürip ýakmakçymy？[Y/n]" && echo
+	read -e -p "(adaty ýagdaýda: y (hawa)): " yn
 	[[ -z ${yn} ]] && yn="y"
 	if [[ ${yn} == [Yy] ]]; then
 		Restart_SSR
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 		ssr_install
 	fi
@@ -2300,18 +2300,18 @@ Clear_transfer(){
 	clear
 	SSR_installation_status
 	echo && echo -e "
- ${Green_font_prefix}1.${Font_color_suffix} Удалить трафик, использованные одним пользователем
- ${Green_font_prefix}2.${Font_color_suffix} Удалить трафик всех пользователей
- ${Green_font_prefix}3.${Font_color_suffix} Запустить самоочистку трафика пользователей
- ${Green_font_prefix}4.${Font_color_suffix} Остановить самоочистку трафика пользователей
- ${Green_font_prefix}5.${Font_color_suffix} Модификация времени самоочистки трафика пользователей" && echo
-	read -e -p "Введите номер: " ssr_modify
+ ${Green_font_prefix}1.${Font_color_suffix} Bir ulanyjynyň ulanan trafigini poz
+ ${Green_font_prefix}2.${Font_color_suffix} Ähli ulanyjylaryň trafigini poz
+ ${Green_font_prefix}3.${Font_color_suffix} Ulanyjylaryň trafigini öz-özini arassalaýjyny işe goýber
+ ${Green_font_prefix}4.${Font_color_suffix} Ulanyjylaryň trafigini öz-özini arassalaýjyny saklamak
+ ${Green_font_prefix}5.${Font_color_suffix} Ulanyjylaryň trafigini öz-özini arassalaýjynyň wagtyny sazlamak" && echo
+	read -e -p "sany saýlaň: " ssr_modify
 	[[ -z "${ssr_modify}" ]] && Clear_transfer
 	if [[ ${ssr_modify} == "1" ]]; then
 		Clear_transfer_one
 	elif [[ ${ssr_modify} == "2" ]]; then
-		echo "Вы действительно хотите удалить трафик всех пользователей？[y/N]" && echo
-		read -e -p "(По умолчанию: n): " yn
+		echo "Siz hakykatdanam Ähli ulanyjylaryň trafigini pozmakçymy？[y/N]" && echo
+		read -e -p "(adaty ýagdaýda: n (ýok)): " yn
 		[[ -z ${yn} ]] && yn="n"
 		if [[ ${yn} == [Yy] ]]; then
 			Clear_transfer_all
@@ -2329,7 +2329,7 @@ Clear_transfer(){
 		check_crontab
 		Clear_transfer_all_cron_modify
 	else
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 	clear
 	Clear_transfer
 	fi
@@ -2339,23 +2339,23 @@ Clear_transfer_one(){
 	List_port_user
 	while true
 	do
-		echo -e "Введите порт пользователя, трафик которого нужно удалить"
-		read -e -p "(По умолчанию: отмена): " Clear_transfer_user_port
-		[[ -z "${Clear_transfer_user_port}" ]] && echo -e "Отмена..." && exit 1
+		echo -e "Trafigini pozmak üçin ulanyjynyň portyny saýla"
+		read -e -p "(adaty ýagdaýda: goýbolsun): " Clear_transfer_user_port
+		[[ -z "${Clear_transfer_user_port}" ]] && echo -e "Goýbolsun..." && exit 1
 		Clear_transfer_user=$(cat "${config_user_mudb_file}"|grep '"port": '"${Clear_transfer_user_port}"',')
 		if [[ ! -z ${Clear_transfer_user} ]]; then
 			match_clear=$(python mujson_mgr.py -c -p "${Clear_transfer_user_port}"|grep -w "clear user ")
 			if [[ -z "${match_clear}" ]]; then
-				echo -e "${Error} Не удалось удалить трафик пользователя! ${Green_font_prefix}[Порт: ${Clear_transfer_user_port}]${Font_color_suffix} "
+				echo -e "${Error} Ulanyjynyň trafigini pozup bolmady! ${Green_font_prefix}[Port: ${Clear_transfer_user_port}]${Font_color_suffix} "
 			else
-				echo -e "${Info} Трафик пользователя успешно удален! ${Green_font_prefix}[Порт: ${Clear_transfer_user_port}]${Font_color_suffix} "
+				echo -e "${Info} Ulanyjynyň trafigi üstünlikli pozuldy! ${Green_font_prefix}[Port: ${Clear_transfer_user_port}]${Font_color_suffix} "
 			fi
 			break
 		else
-			echo -e "${Error} Введите корректный порт !"
+			echo -e "${Error} Gerekli porty saýlaň !"
 		fi
 	done
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 	clear
 	ssr_install
 }
@@ -2364,19 +2364,19 @@ Clear_transfer_all(){
 	cd "${ssr_folder}"
 	user_info=$(python mujson_mgr.py -l)
 	user_total=$(echo "${user_info}"|wc -l)
-	[[ -z ${user_info} ]] && echo -e "${Error} Не найдено пользователей !" && exit 1
+	[[ -z ${user_info} ]] && echo -e "${Error} Ulanyjy tapylmady !" && exit 1
 	for((integer = 1; integer <= ${user_total}; integer++))
 	do
 		user_port=$(echo "${user_info}"|sed -n "${integer}p"|awk '{print $4}')
 		match_clear=$(python mujson_mgr.py -c -p "${user_port}"|grep -w "clear user ")
 		if [[ -z "${match_clear}" ]]; then
-			echo -e "${Error} Не удалось удалить трафик пользователя!  ${Green_font_prefix}[Порт: ${user_port}]${Font_color_suffix} "
+			echo -e "${Error} Ulanyjynyň trafigini pozup bolmady!  ${Green_font_prefix}[Port: ${user_port}]${Font_color_suffix} "
 		else
-			echo -e "${Info} Трафик пользователя успешно удален! ${Green_font_prefix}[Порт: ${user_port}]${Font_color_suffix} "
+			echo -e "${Info} Ulanyjynyň trafigi üstünlikli pozuldy! ${Green_font_prefix}[Port: ${user_port}]${Font_color_suffix} "
 		fi
 	done
-	echo -e "${Info} Весь трафик пользователей успешно удален !"
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	echo -e "${Info} Ulanyjylaryň ähli trafikleri pozuldy !"
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 	clear
 	ssr_install
 }
@@ -2389,11 +2389,11 @@ Clear_transfer_all_cron_start(){
 	rm -r "$file/crontab.bak"
 	cron_config=$(crontab -l | grep "ssrmu.sh")
 	if [[ -z ${cron_config} ]]; then
-		echo -e "${Error} Удаление трафика пользователей регулярно не запущено !" && exit 1
+		echo -e "${Error} Ulanyjynyň trafigini yzygiderli pozuju işe goýberilmedik !" && exit 1
 	else
-		echo -e "${Info} Удаление трафика пользователей регулярно запущено !"
+		echo -e "${Info} Ulanyjynyň trafigini yzygiderli pozuju işe goýberilen !"
 	fi
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 	clear
 	ssr_install
 }
@@ -2405,11 +2405,11 @@ Clear_transfer_all_cron_stop(){
 	rm -r "$file/crontab.bak"
 	cron_config=$(crontab -l | grep "ssrmu.sh")
 	if [[ ! -z ${cron_config} ]]; then
-		echo -e "${Error} Не удалось остановить самоочистку трафика пользователей !" && exit 1
+		echo -e "${Error} Ulanyjylaryň trafigini öz-özini arassalaýjyny saklamak başartmady !" && exit 1
 	else
-		echo -e "${Info} Удалось остановить самоочистку трафика пользователей !"
+		echo -e "${Info} Ulanyjylaryň trafigini öz-özini arassalaýjyny saklamak başartdy !"
 	fi
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 	clear
 	ssr_install
 }
@@ -2420,32 +2420,32 @@ Clear_transfer_all_cron_modify(){
 }
 Set_crontab(){
 	clear
-		echo -e "Введите временный интервал для очистки трафика
- === Описание формата ===
- * * * * * Минуты, часы, дни, месяцы, недели
- ${Green_font_prefix} 0 2 1 * * ${Font_color_suffix} Означает каждый месяц 1ого числа в 2 часа
- ${Green_font_prefix} 0 2 15 * * ${Font_color_suffix} Означает каждый месяц 15ого числа в 2 часа
- ${Green_font_prefix} 0 2 */7 * * ${Font_color_suffix} Каждые 7 дней в 2 часа
- ${Green_font_prefix} 0 2 * * 0 ${Font_color_suffix} Каждое воскресенье
- ${Green_font_prefix} 0 2 * * 3 ${Font_color_suffix} Каждую среду" && echo
-	read -e -p "(По умолчанию: 0 2 1 * * Тоесть каждое 1ое число месяца в 2 часа): " Crontab_time
+		echo -e "Trafigi arassalamak üçin wagtlaýyn interwaly saýla
+ === Formatyň düşündirilişi ===
+ * * * * * Minut, sagat, gün, aý, hepde
+ ${Green_font_prefix} 0 2 1 * * ${Font_color_suffix} Şul her aýyň 1 nji çislosyny, 2 sagady aňladýar
+ ${Green_font_prefix} 0 2 15 * * ${Font_color_suffix} Şul her aýyň 15 nji çislosyny, 2 sagady aňladýar
+ ${Green_font_prefix} 0 2 */7 * * ${Font_color_suffix} Şul her 7 gün 2 sagady aňladýar
+ ${Green_font_prefix} 0 2 * * 0 ${Font_color_suffix} Her dynç güni aňladýar
+ ${Green_font_prefix} 0 2 * * 3 ${Font_color_suffix} Her 3nji güni aňladýar" && echo
+	read -e -p "(adaty ýagdaýda: 0 2 1 * * Garaz her aýyň 1 nji çislosyny, 2 sagady aňladýar): " Crontab_time
 	[[ -z "${Crontab_time}" ]] && Crontab_time="0 2 1 * *"
 }
 Start_SSR(){
 	SSR_installation_status
 	check_pid
-	[[ ! -z ${PID} ]] && echo -e "${Error} ShadowsocksR запущен !" && exit 1
+	[[ ! -z ${PID} ]] && echo -e "${Error} ShadowsocksR işe goýberilen !" && exit 1
 	/etc/init.d/ssrmu start
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 	clear
 	ssr_install
 }
 Stop_SSR(){
 	SSR_installation_status
 	check_pid
-	[[ -z ${PID} ]] && echo -e "${Error} ShadowsocksR не запущен !" && exit 1
+	[[ -z ${PID} ]] && echo -e "${Error} ShadowsocksR işe goýberilmedik !" && exit 1
 	/etc/init.d/ssrmu stop
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 	clear
 	ssr_install
 }
@@ -2454,47 +2454,47 @@ Restart_SSR(){
 	check_pid
 	[[ ! -z ${PID} ]] && /etc/init.d/ssrmu stop
 	/etc/init.d/ssrmu start
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 	clear
 	ssr_install
 }
 View_Log(){
 	clear
 	SSR_installation_status
-	[[ ! -e ${ssr_log_file} ]] && echo -e "${Error} Лог ShadowsocksR не существует !" && exit 1
-	echo && echo -e "${Tip} Нажмите ${Red_font_prefix}Ctrl+C${Font_color_suffix} для остановки просмотра лога" && echo -e "Если вам нужен полный лог, то напишите ${Red_font_prefix}cat ${ssr_log_file}${Font_color_suffix} 。" && echo
+	[[ ! -e ${ssr_log_file} ]] && echo -e "${Error} ShadowsocksRyň log ýazgysy ýok !" && exit 1
+	echo && echo -e "${Tip} Log ýazgyny gömegi bez etmek üçin ${Red_font_prefix}Ctrl+C${Font_color_suffix} düwmäni basyň" && echo -e "Eger doly log ýazgyny görmek üçin ${Red_font_prefix}cat ${ssr_log_file}${Font_color_suffix}  ýazyň。" && echo
 	tail -f ${ssr_log_file}
 }
 Set_config_connect_verbose_info(){
 	clear
 	SSR_installation_status
-	[[ ! -e ${jq_file} ]] && echo -e "${Error} Отсутствует парсер JQ !" && exit 1
+	[[ ! -e ${jq_file} ]] && echo -e "${Error} JQ ýok !" && exit 1
 	connect_verbose_info=`${jq_file} '.connect_verbose_info' ${config_user_file}`
 	if [[ ${connect_verbose_info} = "0" ]]; then
-		echo && echo -e "Текущий режим логирования: ${Green_font_prefix}простой（только ошибки）${Font_color_suffix}" && echo
-		echo -e "Вы уверены, что хотите сменить его на  ${Green_font_prefix}детализированный(Детальный лог соединений + ошибки)${Font_color_suffix}？[y/N]"
-		read -e -p "(По умолчанию: n): " connect_verbose_info_ny
+		echo && echo -e "Log ýazgynyň şu wagtky tertibi: ${Green_font_prefix}ýönekeý（diňe ýalňyşlar）${Font_color_suffix}" && echo
+		echo -e "Siz hakykatdan hem ony ${Green_font_prefix}Jikme-jik(Jikme-jik + ýalňyşlar)${Font_color_suffix} tertibe geçirmek isleýärsiňizmi？[y/N]"
+		read -e -p "(adaty ýagdaýda: n (ýok)): " connect_verbose_info_ny
 		[[ -z "${connect_verbose_info_ny}" ]] && connect_verbose_info_ny="n"
 		if [[ ${connect_verbose_info_ny} == [Yy] ]]; then
 			ssr_connect_verbose_info="1"
 			Modify_config_connect_verbose_info
 			Restart_SSR
 		else
-			read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+			read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 			clear
 			ssr_install
 		fi
 	else
-		echo && echo -e "Текущий режим логирования: ${Green_font_prefix}детализированный(Детальный лог соединений + ошибки)${Font_color_suffix}" && echo
-		echo -e "Вы уверены, что хотите сменить его на  ${Green_font_prefix}простой（только ошибки）${Font_color_suffix}？[y/N]"
-		read -e -p "(По умолчанию: n): " connect_verbose_info_ny
+		echo && echo -e "Log ýazgynyň şu wagtky tertibi: ${Green_font_prefix}Jikme-jik(Jikme-jik + ýalňyşlar)${Font_color_suffix}" && echo
+		echo -e "Siz hakykatdan hem ony ${Green_font_prefix}ýönekeý（diňe ýalňyşlar）${Font_color_suffix} tertibe geçirmek isleýärsiňizmi？[y/N]"
+		read -e -p "(adaty ýagdaýda: n (ýok)): " connect_verbose_info_ny
 		[[ -z "${connect_verbose_info_ny}" ]] && connect_verbose_info_ny="n"
 		if [[ ${connect_verbose_info_ny} == [Yy] ]]; then
 			ssr_connect_verbose_info="0"
 			Modify_config_connect_verbose_info
 			Restart_SSR
 		else
-			read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+			read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 			clear
 			ssr_install
 		fi
@@ -2504,26 +2504,26 @@ Set_crontab_monitor_ssr(){
 	SSR_installation_status
 	crontab_monitor_ssr_status=$(crontab -l|grep "ssrmu.sh monitor")
 	if [[ -z "${crontab_monitor_ssr_status}" ]]; then
-		echo && echo -e "Текущий статус мониторинга: ${Green_font_prefix}выключен${Font_color_suffix}" && echo
-		echo -e "Вы уверены что хотите включить ${Green_font_prefix}функцию мониторинга ShadowsocksR${Font_color_suffix}？(При отключении SSR, он будет запущен автоматически)[Y/n]"
-		read -e -p "(По умолчанию: y): " crontab_monitor_ssr_status_ny
+		echo && echo -e "Monitoringiň hazirki ýagdaýy: ${Green_font_prefix}öçük${Font_color_suffix}" && echo
+		echo -e "Siz hakykatdan hem ${Green_font_prefix} ShadowsocksR monitoringini${Font_color_suffix} açmak isleýäňizmi？(SSR öçürseňiz ol awtomat ýagdaýda işe goýberiler)[Y/n]"
+		read -e -p "(adaty ýagdaýda: y (hawa)): " crontab_monitor_ssr_status_ny
 		[[ -z "${crontab_monitor_ssr_status_ny}" ]] && crontab_monitor_ssr_status_ny="y"
 		if [[ ${crontab_monitor_ssr_status_ny} == [Yy] ]]; then
 			crontab_monitor_ssr_cron_start
 		else
-			read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+			read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 			clear
 			ssr_install
 		fi
 	else
-		echo && echo -e "Текущий статус мониторинга: ${Green_font_prefix}включен${Font_color_suffix}" && echo
-		echo -e "Вы уверены что хотите выключить ${Green_font_prefix}функцию мониторинга ShadowsocksR${Font_color_suffix}？(При отключении SSR, он будет запущен автоматически)[y/N]"
-		read -e -p "(По умолчанию: n): " crontab_monitor_ssr_status_ny
+		echo && echo -e "Monitoringin ýagdaýy: ${Green_font_prefix}açyk${Font_color_suffix}" && echo
+		echo -e "Siz hakykatdan hem ${Green_font_prefix}ShadowsocksR monitoringini${Font_color_suffix} ýapmak isleýäňizmi？(SSR öçürseňiz ol awtomat ýagdaýda işe goýberiler)[y/N]"
+		read -e -p "(adaty ýagdaýda: n (ýok)): " crontab_monitor_ssr_status_ny
 		[[ -z "${crontab_monitor_ssr_status_ny}" ]] && crontab_monitor_ssr_status_ny="n"
 		if [[ ${crontab_monitor_ssr_status_ny} == [Yy] ]]; then
 			crontab_monitor_ssr_cron_stop
 		else
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 		clear
 		ssr_install
 		fi
@@ -2533,17 +2533,17 @@ crontab_monitor_ssr(){
 	SSR_installation_status
 	check_pid
 	if [[ -z ${PID} ]]; then
-		echo -e "${Error} [$(date "+%Y-%m-%d %H:%M:%S %u %Z")] Замечено что SSR не запущен, запускаю..." | tee -a ${ssr_log_file}
+		echo -e "${Error} [$(date "+%Y-%m-%d %H:%M:%S %u %Z")] SSR işe goýberilmedik, Işe goýberilýär..." | tee -a ${ssr_log_file}
 		/etc/init.d/ssrmu start
 		sleep 1s
 		check_pid
 		if [[ -z ${PID} ]]; then
-			echo -e "${Error} [$(date "+%Y-%m-%d %H:%M:%S %u %Z")] ShadowsocksR не удалось запустить..." | tee -a ${ssr_log_file} && exit 1
+			echo -e "${Error} [$(date "+%Y-%m-%d %H:%M:%S %u %Z")] ShadowsocksR işe goýberip bolmady..." | tee -a ${ssr_log_file} && exit 1
 		else
-			echo -e "${Info} [$(date "+%Y-%m-%d %H:%M:%S %u %Z")] ShadowsocksR успешно установлен..." | tee -a ${ssr_log_file} && exit 1
+			echo -e "${Info} [$(date "+%Y-%m-%d %H:%M:%S %u %Z")] ShadowsocksR üstünlikli işe goýberildi..." | tee -a ${ssr_log_file} && exit 1
 		fi
 	else
-		echo -e "${Info} [$(date "+%Y-%m-%d %H:%M:%S %u %Z")] ShadowsocksR успешно работает..." exit 0
+		echo -e "${Info} [$(date "+%Y-%m-%d %H:%M:%S %u %Z")] ShadowsocksR üstünlikli işleýär..." exit 0
 	fi
 }
 crontab_monitor_ssr_cron_start(){
@@ -2554,13 +2554,13 @@ crontab_monitor_ssr_cron_start(){
 	rm -r "$file/crontab.bak"
 	cron_config=$(crontab -l | grep "ssrmu.sh monitor")
 	if [[ -z ${cron_config} ]]; then
-		echo -e "${Error} Не удалось запустить функцию мониторинга ShadowsocksR  !"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Error} ShadowsocksRyň monitoringini işe goýberip bolmady  !"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 		clear
 	ssr_install
 	else
-		echo -e "${Info} Функция мониторинга ShadowsocksR успешно запущена !"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} ShadowsocksRyň monitoringi üstünlikli işe goýberildi !"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENETRi bas..."
 		clear
 	ssr_install
 	fi
@@ -2572,36 +2572,36 @@ crontab_monitor_ssr_cron_stop(){
 	rm -r "$file/crontab.bak"
 	cron_config=$(crontab -l | grep "ssrmu.sh monitor")
 	if [[ ! -z ${cron_config} ]]; then
-		echo -e "${Error} Сервер ShadowsocksR, на котором работает функция мониторинга состояния, останавливается, не удалось !" && exit 1
+		echo -e "${Error} Monitonigiň işleýän ShadowsocksR serweri saklanylýar, başa barmady !" && exit 1
 	else
-		echo -e "${Info} Сервер ShadowsocksR, на котором запущена функция мониторинга состояния, успешно остановлен !"
+		echo -e "${Info} Monitonigiň işleýän ShadowsocksR serweri saklanylýar, üstünlikli başa bardy !"
 	fi
 }
-# Отображение статуса меню
+# Menýuwyň statusy
 menu_status(){
 	if [[ -e ${ssr_folder} ]]; then
 		check_pid
 		if [[ ! -z "${PID}" ]]; then
-			echo -e " Текущий статус: ${Green_font_prefix}Установлен${Font_color_suffix} и ${Green_font_prefix}запущен${Font_color_suffix}"
+			echo -e " Häzirki ýagdaýy: ${Green_font_prefix}Ustanowka edilen${Font_color_suffix} we ${Green_font_prefix}Işe goýberilen${Font_color_suffix}"
 		else
-			echo -e " Текущий статус: ${Green_font_prefix}Установлен${Font_color_suffix}, но ${Red_font_prefix}не запущен${Font_color_suffix}"
+			echo -e " Häzirki ýagdaýy: ${Green_font_prefix}Ustanowka edilen${Font_color_suffix}, ýöne ${Red_font_prefix}Işe goýberilmedik${Font_color_suffix}"
 		fi
 		cd "${ssr_folder}"
 	else
-		echo -e " Текущий статус: ${Red_font_prefix}Не установлен${Font_color_suffix}"
+		echo -e " Häzirki ýagdaýy: ${Red_font_prefix}Ustanowka edilmedik${Font_color_suffix}"
 	fi
 }
 #######################
 Other_menu(){
 	clear
 echo -e "${Green_font_prefix}==========================================${Font_color_suffix}
-  ${Green_font_prefix}0.${Font_color_suffix} Выход в главное меню
-${Green}——————————————————— Прочее ———————————————————${Font_color_suffix}
-  ${Green_font_prefix}1.${Font_color_suffix} Изменить тип вывода лога ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}${Font_color_suffix}
-  ${Green_font_prefix}2.${Font_color_suffix} Мониторинг статуса ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
+  ${Green_font_prefix}0.${Font_color_suffix} Esasy menýuwa çykmak
+${Green}——————————————————— Başgalar ———————————————————${Font_color_suffix}
+  ${Green_font_prefix}1.${Font_color_suffix} Log ýazgyň görnüşini üýtgetmek ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}${Font_color_suffix}
+  ${Green_font_prefix}2.${Font_color_suffix} Monitoringiň ýagdaýy ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
 ${Green_font_prefix}==========================================${Font_color_suffix}
  "
- echo && read -e -p "Введите номер： " num
+ echo && read -e -p "Gerekli sany saýlaň： " num
 case "$num" in
 	0)
 	clear
@@ -2632,28 +2632,28 @@ elif [[ "${action}" == "monitor" ]]; then
 else
 clear
 D=$(date +%d-%m-%Y)
-echo -e "Сегодня: ${Ocean}$D${Font_color_suffix}"
+echo -e "Şu gün: ${Ocean}$D${Font_color_suffix};           Skirptiň awtory: ${Yellow}ALPARSLAN${Font_color_suffix}; Telegram: ${Ocean}@alparslan_93${Font_color_suffix}; "
 echo -e "${Green_font_prefix}==========================================${Font_color_suffix}
-  ${Green_font_prefix}0.${Font_color_suffix} Выход в главное меню
-${Red}———————————— Установка / Удаление ————————————${Font_color_suffix}
-  ${Green_font_prefix}1.${Font_color_suffix} Установить ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
-  ${Green_font_prefix}2.${Font_color_suffix} Удалить ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
-${Green}—————————— Управление конфигурацией ——————————${Font_color_suffix}
-  ${Green_font_prefix}3.${Font_color_suffix} Посмотреть информацию о пользователях
-  ${Green_font_prefix}4.${Font_color_suffix} Показать подключенные IP-адреса
-  ${Green_font_prefix}5.${Font_color_suffix} Настройки конфигурации
-  ${Green_font_prefix}6.${Font_color_suffix} Другие функции
-${Yellow}——————————————————— Статус ———————————————————${Font_color_suffix}
-  ${Green_font_prefix}7.${Font_color_suffix} Запустить ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
-  ${Green_font_prefix}8.${Font_color_suffix} Остановить ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
-  ${Green_font_prefix}9.${Font_color_suffix} Перезапустить ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
- ${Green_font_prefix}10.${Font_color_suffix} Просмотреть логи ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
+  ${Green_font_prefix}0.${Font_color_suffix} Esasy menýuwa çykmak
+${Red}———————————— Ustanowka / Pozmak ————————————${Font_color_suffix}
+  ${Green_font_prefix}1.${Font_color_suffix} Ustanowka etmek ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
+  ${Green_font_prefix}2.${Font_color_suffix} Pozmak ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
+${Green}—————————— Konfigurasiýany dolandyrmak ——————————${Font_color_suffix}
+  ${Green_font_prefix}3.${Font_color_suffix} Ulanyjylar barada maglumaty görmek
+  ${Green_font_prefix}4.${Font_color_suffix} Baglanan IP salgylasry görmek
+  ${Green_font_prefix}5.${Font_color_suffix} Konfigurasiýa sazlamalary
+  ${Green_font_prefix}6.${Font_color_suffix} Başga funksiýalar
+${Yellow}——————————————————— Ýagdaýy ———————————————————${Font_color_suffix}
+  ${Green_font_prefix}7.${Font_color_suffix} Işe goýbermek ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
+  ${Green_font_prefix}8.${Font_color_suffix} Saklamak ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
+  ${Green_font_prefix}9.${Font_color_suffix} Öçürip ýakmak ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
+ ${Green_font_prefix}10.${Font_color_suffix} Log ýazgyny görmek ${Yellow}Shadowsocks/ShadowsocksR${Font_color_suffix}
 ${Ocean}—————————————————— OpenVPN ———————————————————${Font_color_suffix}
  ${Green_font_prefix}11.${Font_color_suffix} ${Ocean}OpenVPN ${Font_color_suffix}
 ${Green_font_prefix}==========================================${Font_color_suffix}
  "
 	menu_status
-	echo && read -e -p "Введите номер: " num
+	echo && read -e -p "Gerekli sany saýlaň: " num
 case "$num" in
 	0)
 	clear
