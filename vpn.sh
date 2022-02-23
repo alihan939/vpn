@@ -9,9 +9,9 @@ clear
 
 #=================================================
 #   System Required: CentOS 6+/Debian 6+/Ubuntu 14.04+
-#   Description: Install the ShadowsocksR mudbjson server
+#   Description: Shadowsock scripti stanowka et
 #   Version: 1.0.26
-#   Author: Lunatik
+#   Author: Alparslan
 #=================================================
 
 sh_ver="3.0"
@@ -117,19 +117,19 @@ if [[ ! -e /dev/net/tun ]] || ! ( exec 7<>/dev/net/tun ) 2>/dev/null; then
 fi
 
 adduser(){
-	echo -e "Способ создания: 
-  1. С автоуказанием даты
-  2. Без даты"
-  echo && read -e -p "По умолчанию [1]: " num
+	echo -e "Döretmegiň görnüşi: 
+  1. Yzyna aý gün hasaby goşup
+  2. Aý gün hasapsyz"
+  echo && read -e -p "Sistemaň saýlaýany [1]: " num
 case "$num" in
 	1)
 	echo
-	echo "Выберите имя для клиента:"
-	read -p "Имя: " unsanitized_client
+	echo "Müşderiniň adyny saýlan:"
+	read -p "Ady: " unsanitized_client
 	client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	while [[ -z "$client" || -e /etc/openvpn/server/easy-rsa/pki/issued/"$client".crt ]]; do
-		echo "$client: Такое имя уже существует."
-		read -p "Имя: " unsanitized_client
+		echo "$client: Saýlan adyňyz öňem bar."
+		read -p "Ady: " unsanitized_client
 		client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	done
 	client=$(echo "${client}_$(date +"%d-%m")")	
@@ -143,22 +143,22 @@ case "$num" in
 	echo "-------------------------"
 	echo "----------------"
 	echo "---------"
-	echo -e "$linktofile - ссылка  на конфигурационный файл клиента $client"
+	echo -e "$linktofile - Müşderiniň konfigrasiýa faýlynyň ssylkasy $client"
 	echo "---------"
 	echo "----------------"
 	echo "-------------------------"
 	echo "--------------------------------"
-	read -n1 -r -p "Нажмите Enter для возврата в меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTER düwmä basyň..."
    ovpn_menu
 	;;
 	2)
 	echo
-	echo "Выберите имя для клиента:"
-	read -p "Имя: " unsanitized_client
+	echo "Müşderi üçin at saýlaň:"
+	read -p "Ady: " unsanitized_client
 	client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	while [[ -z "$client" || -e /etc/openvpn/server/easy-rsa/pki/issued/"$client".crt ]]; do
-		echo "$client: Такое имя уже существует."
-		read -p "Имя: " unsanitized_client
+		echo "$client: Saýlan adyňyz öň bar."
+		read -p "Ady: " unsanitized_client
 		client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	done
 	client=$(echo "${client}")	
@@ -172,22 +172,22 @@ case "$num" in
 	echo "-------------------------"
 	echo "----------------"
 	echo "---------"
-	echo -e "$linktofile - ссылка  на конфигурационный файл клиента $client"
+	echo -e "$linktofile - Müşderiniň konfigrasiýa faýlynyň ssylkasy $client"
 	echo "---------"
 	echo "----------------"
 	echo "-------------------------"
 	echo "--------------------------------"
-	read -n1 -r -p "Нажмите Enter для возврата в меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTER düwmä basyň..."
    ovpn_menu
 	;;
 	*)
 		echo
-	echo "Выберите имя для клиента:"
-	read -p "Имя: " unsanitized_client
+	echo "Müşderi üçin at saýlaň:"
+	read -p "Ady: " unsanitized_client
 	client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	while [[ -z "$client" || -e /etc/openvpn/server/easy-rsa/pki/issued/"$client".crt ]]; do
-		echo "$client: Такое имя уже существует."
-		read -p "Имя: " unsanitized_client
+		echo "$client: Saýlan adyňyz öň bar."
+		read -p "Ady: " unsanitized_client
 		client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	done
 	client=$(echo "${client}_$(date +"%d-%m")")	
@@ -201,12 +201,12 @@ case "$num" in
 	echo "-------------------------"
 	echo "----------------"
 	echo "---------"
-	echo -e "$linktofile - ссылка  на конфигурационный файл клиента $client"
+	echo -e "$linktofile - Müşderiniň konfigrasiýa faýlynyň ssylkasy $client"
 	echo "---------"
 	echo "----------------"
 	echo "-------------------------"
 	echo "--------------------------------"
-	read -n1 -r -p "Нажмите Enter для возврата в меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTER düwmä basyň..."
    ovpn_menu
    ;;
 esac
@@ -215,38 +215,38 @@ get_users_list(){
 	number_of_clients=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c "^V")
 	if [[ "$number_of_clients" = 0 ]]; then
 		echo
-		echo "Клиенты отсутсвуют, кого вы хотите удалить?!"
-			read -n1 -r -p "Нажмите Enter для возврата в меню..."
+		echo "Dost müşderi ýoga, nädip pozjak?!"
+			read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTER düwma basyň..."
    ovpn_menu
 	fi
 		echo
 		clear
-		echo "Клиенты на сервере:"
+		echo "Serýerdäki müşderler:"
 		tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | nl -s ') '
-			read -n1 -r -p "Нажмите Enter для возврата в меню..."
+			read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTER düwmä basyň..."
    ovpn_menu
 }
 deleteuser(){
 				number_of_clients=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c "^V")
 			if [[ "$number_of_clients" = 0 ]]; then
 				echo
-				echo "Клиенты отсутсвуют, кого вы хотите удалить?!"
+				echo "Dost müşderi ýoga, nädip pozjak?!"
 				exit
 			fi
 			echo
-			echo "Клиент, подлежащий удалению:"
+			echo "Pozmaga degişli müşderi:"
 			tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | nl -s ') '
-			read -p "Клиент: " client_number
+			read -p "Müşderi: " client_number
 			until [[ "$client_number" =~ ^[0-9]+$ && "$client_number" -le "$number_of_clients" ]]; do
-				echo "$client_number: ввод неверен."
-				read -p "Клиент: " client_number
+				echo "$client_number: Ýalňyş girizdiň."
+				read -p "Müşderi: " client_number
 			done
 			client=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | sed -n "$client_number"p)
 			echo
-			read -p "Вы уверены что хотите удалить $client ? [y/N]: " revoke
+			read -p "Dost çyndanam yok etjekmaý şony $client ? [y/N]: " revoke
 			until [[ "$revoke" =~ ^[yYnN]*$ ]]; do
-				echo "$revoke: ввод неверен."
-				read -p "Вы уверены что хотите удалить $client ? [y/N]: " revoke
+				echo "$revoke: ýalňyş girizdiň."
+				read -p "Dost çyndanam yok etjekmaý şony $client ? [y/N]: " revoke
 			done
 			if [[ "$revoke" =~ ^[yY]$ ]]; then
 				cd /etc/openvpn/server/easy-rsa/
@@ -259,18 +259,18 @@ deleteuser(){
 				echo
 				rm "/root/$client.ovpn" 
 				clear
-				echo "$client удален!"
-				read -e -p "Хотите продолжить удаление пользователей?[Y/n]:" delyn
+				echo "$client pozuldy!"
+				read -e -p "Ýenede müşderi pozjakmy?[Y/n]:" delyn
 				[[ -z ${delyn} ]] && delyn="y"
 				if [[ ${delyn} == [Nn] ]]; then
                 	 ovpn_menu
 				else
-					echo -e "${Info} Продолжение удаления пользователей..."
+					echo -e "${Info} Müşderi pozmak dowam edilýär..."
 					deleteuser
 				fi
 			else
 				echo
-				echo "Удаление $client отменено!"
+				echo " $client - i pozmak ýatyryldy!"
 			fi
 			exit
 }
@@ -278,37 +278,37 @@ showlink(){
 	number_of_clients=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c "^V")
 	if [[ "$number_of_clients" = 0 ]]; then
 		echo
-		echo "Клиенты отсутсвуют, какую ссылку вы хотите получить?!"
+		echo "Dost ýok müşderiň ssylkasyny alyp bolmaýar?!"
 		exit
 	fi
 		echo
-		echo "Ссылку на кого вы хотите получить?:"
+		echo "Haýsy müşderiň ssylkasyny alasyn gelýär?:"
 		tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | nl -s ') '
-		read -p "Клиент: " client_number
+		read -p "Müşderi: " client_number
 		until [[ "$client_number" =~ ^[0-9]+$ && "$client_number" -le "$number_of_clients" ]]; do
-			echo "$client_number: ввод неверен."
-			read -p "Клиент: " client_number
+			echo "$client_number: Ýalnyş girizdiň."
+			read -p "Müşderi: " client_number
 		done
 		client=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | sed -n "$client_number"p)
 		echo
 		linktofile="$(curl -F "file=@/root/$client.ovpn" "https://file.io" | cut -b 46-73)"
 		clear
-		echo -e "$linktofile - ссылка  на конфигурационный файл клиента $client" && echo
-		read -e -p "Хотите продолжить вывод ссылок?[Y/n]: " delyn
+		echo -e "$linktofile - Müşderiniň ssylkasy $client" && echo
+		read -e -p "ýene ssylka gerekmi?[Y/n]: " delyn
 		[[ -z ${delyn} ]] && delyn="y"
 		if [[ ${delyn} == [Nn] ]]; then
 				ovpn_menu
 		else
-				echo -e "${Info} Продолжение выдачи ссылок..."
+				echo -e "${Info} ýene ssylka bermek dowam edilýär..."
 				showlink
 		fi
 }
 uninstallovpn(){
 				echo
-			read -p "Вы уверены что хотите удалить OpenVPN? [y/N]: " remove
+			read -p "OpenVpni çyndanam pozjakmy?? [y/N]: " remove
 			until [[ "$remove" =~ ^[yYnN]*$ ]]; do
-				echo "$remove: ввод неверен."
-				read -p "Вы уверены что хотите удалить OpenVPN? [y/N]: " remove
+				echo "$remove: ýalňyş girizdiň."
+				read -p "OpenVpni çyndanam pozjakmy?? [y/N]: " remove
 			done
 			if [[ "$remove" =~ ^[yY]$ ]]; then
 				port=$(grep '^port ' /etc/openvpn/server/server.conf | cut -d " " -f 2)
@@ -349,10 +349,10 @@ uninstallovpn(){
 				echo
 				rm -r "/var/log/openvpn"
 				cd "/root" && rm *.ovpn
-				echo "OpenVPN удален!"
+				echo "OpenVPN pozuldy!"
 			else
 				echo
-				echo "Удаление OpenVPN отменено!"
+				echo "OpenVPNi pozmak ýatyryldy!"
 			fi
 			exit
 }
@@ -380,7 +380,7 @@ new_client () {
 if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	apt install at
 	clear
-	echo 'Добро пожаловать в установщик OpenVpn от Лунаtik-a!'
+	echo 'Alparslanyň OpenVpn sçriptine hoş geldin dost!'
 	# If system has a single IPv4, it is selected automatically. Else, ask the user
 	if [[ $(ip -4 addr | grep inet | grep -vEc '127(\.[0-9]{1,3}){3}') -eq 1 ]]; then
 		ip=$(ip -4 addr | grep inet | grep -vE '127(\.[0-9]{1,3}){3}' | cut -d '/' -f 1 | grep -oE '[0-9]{1,3}(\.[0-9]{1,3}){3}')
@@ -400,7 +400,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	# If $ip is a private IP address, the server must be behind NAT
 	    echo "$ip" | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)';
 		echo
-		echo  -e "Введите ${Green_background_prefix}IP/Домен${Font_color_suffix} сервера"
+		echo  -e "Serýeriň ${Green_background_prefix}IPsini ýada DOMENi${Font_color_suffix} giriz"
 		# Get public IP and sanitize with grep
 		get_public_ip=$(grep -m 1 -oE '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' <<< "$(wget -T 10 -t 1 -4qO- "http://ip1.dynupdate.no-ip.com/" || curl -m 10 -4Ls "http://ip1.dynupdate.no-ip.com/")")
 		read -p "Public IPv4 address / hostname [$get_public_ip]: " public_ip
@@ -412,7 +412,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	if [[ $(ip -6 addr | grep -c 'inet6 [23]') -gt 1 ]]; then
 		number_of_ip6=$(ip -6 addr | grep -c 'inet6 [23]')
 		echo
-		echo "Какой IPV6 использовать?"
+		echo "Nähili IPV6 ulanmaly?"
 		ip -6 addr | grep 'inet6 [23]' | cut -d '/' -f 1 | grep -oE '([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}' | nl -s ') '
 		read -p "IPv6 адрес [1]: " ip6_number
 		until [[ -z "$ip6_number" || "$ip6_number" =~ ^[0-9]+$ && "$ip6_number" -le "$number_of_ip6" ]]; do
@@ -423,13 +423,13 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 		ip6=$(ip -6 addr | grep 'inet6 [23]' | cut -d '/' -f 1 | grep -oE '([0-9a-fA-F]{0,4}:){1,7}[0-9a-fA-F]{0,4}' | sed -n "$ip6_number"p)
 	fi
 	echo
-	echo "Какой протокол OpenVPN использовать?"
+	echo "Dost OpenVPN haýsy protokoly ulansyn?"
 	echo "   1) UDP"
 	echo "   2) TCP"
-	read -p "Протокол [По умолчанию: UDP]: " protocol
+	read -p "Protokol [Adaty ýagdaýda: UDP]: " protocol
 	until [[ -z "$protocol" || "$protocol" =~ ^[12]$ ]]; do
-		echo "$protocol: ввод неверен."
-		read -p "Протокол [По умолчанию: UDP]: " protocol
+		echo "$protocol: ýalňyş girizdiň."
+		read -p "Protokol [Adaty ýagdaýda: UDP]: " protocol
 	done
 	case "$protocol" in
 		1|"") 
@@ -440,34 +440,34 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 		;;
 	esac
 	echo
-	echo "Выберите порт для OpenVPN"
-	read -p "Порт [По умолчанию: 1194]: " port
+	echo "OpenVPN üçin port saýla"
+	read -p "PORT [adaty ýagdaýda: 1194]: " port
 	until [[ -z "$port" || "$port" =~ ^[0-9]+$ && "$port" -le 65535 ]]; do
-		echo "$port: ввод неверен."
-		read -p "Порт [По умолчанию: 1194]: " port
+		echo "$port: ýalňyş girizdiň."
+		read -p "PORT [adaty ýagdaýda: 1194]: " port
 	done
 	[[ -z "$port" ]] && port="1194"
 	echo
-	echo "Выберите DNS сервер для клиентов (Рекомендация: 1):"
-	echo "   1) Текущий DNS сервер"
+	echo "Müşderi üçin DNS serverem bir saýlap goýber dost (Meň maslahatyma: 1):"
+	echo "   1) Häzirki DNS server"
 	echo "   2) Google"
 	echo "   3) 1.1.1.1"
 	echo "   4) OpenDNS"
 	echo "   5) Quad9"
 	echo "   6) AdGuard"
-	read -p "DNS сервер [По умолчанию: 1]: " dns
+	read -p "DNS server [adaty ýagdaýda: 1]: " dns
 	until [[ -z "$dns" || "$dns" =~ ^[1-6]$ ]]; do
 		echo "$dns: invalid selection."
-		read -p "DNS сервер [По умолчанию: 1]: " dns
+		read -p "DNS server [adaty ýagdaýda: 1]: " dns
 	done
 	echo
-	echo "Выбрите имя для первого клиента:"
-	read -p "Имя [По умолчанию: Admin]: " unsanitized_client
+	echo "Ilkinji müşderi üçin at saýla:"
+	read -p "Ady [adaty ýagdaýda: Admin]: " unsanitized_client
 	# Allow a limited set of characters to avoid conflicts
 	client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	[[ -z "$client" ]] && client="Admin"
 	echo
-	echo "Установка OpenVPN готова к запуску."
+	echo "OpenVPN ustanowka goýberilmäne taýýar."
 	# Install a firewall in the rare case where one is not already available
 	if ! systemctl is-active --quiet firewalld.service && ! hash iptables 2>/dev/null; then
 		if [[ "$os" == "centos" || "$os" == "fedora" ]]; then
@@ -477,7 +477,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 			firewall="iptables"
 		fi
 	fi
-	read -n1 -r -p "Нажмите любую клавишу для продолжения..."
+	read -n1 -r -p "Islendik düwmäni basyň..."
 	# If running inside a container, disable LimitNPROC to prevent conflicts
 	if systemd-detect-virt -cq; then
 		mkdir /etc/systemd/system/openvpn-server@server.service.d/ 2>/dev/null
@@ -695,12 +695,12 @@ verb 3" > /etc/openvpn/server/client-common.txt
 	# Generates the custom client.ovpn
 	new_client
 	echo
-	echo "Установка завершена!"
+	echo "ustanowka üstünlikli tamamlandy!"
 	echo
-	echo "Конфигурация для нового клиента расположена в:" ~/"$client.ovpn" && echo
+	echo "Täze müşderiniň faýly:" ~/"$client.ovpn ýerde ýerleşýär" && echo
 	linktofile="$(curl -F "file=@/root/$client.ovpn" "https://file.io")"
-	echo -e "$linktofile - ссылка  на конфигурационный файл клиента $client" && echo
-	echo "Для добавления новых клиентов, перезапустите скрипт."
+	echo -e "$linktofile - Müşderi faýlynyň ssylkasy $client" && echo
+	echo "Täze müşderi goşmak üçin skripti täzeden goýber."
 else
 	clear
 ovpn_menu(){
@@ -730,25 +730,25 @@ ${Yellow}╭━━━╮╱╱╱╱╱╱╱╭╮╱╱╭┳━━━┳━�
 ╱╱╱╱┃┃
 ╱╱╱╱╰╯${Font_color_suffix}"
 	echo
-echo -e "Приветствую, администратор сервера!
-  Всего пользователей на сервере:${Green_font_prefix} ${number_of_clients} ${Font_color_suffix}"
-echo -e "  Всего подключенных пользователей:${Green_font_prefix} ${number_of_active} ${Font_color_suffix}"
+echo -e "Salam dostlar. hormatlamak bilen Alparslan!
+  Jemi seýredäki müşderleriň sany:${Green_font_prefix} ${number_of_clients} ${Font_color_suffix}"
+echo -e "  Ulgamdaky müşderleriň sany:${Green_font_prefix} ${number_of_active} ${Font_color_suffix}"
   echo -e "
-  IP сервера: ${Ocean}${ip}${Font_color_suffix}
+  Serveriň IPsi: ${Ocean}${ip}${Font_color_suffix}
 
-  ${Green_font_prefix}0.${Font_color_suffix} Выход в главное меню
+  ${Green_font_prefix}0.${Font_color_suffix} Baş menýuwa dolanmak
  ————————————
-  ${Green_font_prefix}1.${Font_color_suffix} Добавить клиента
-  ${Green_font_prefix}2.${Font_color_suffix} Удалить клиента
+  ${Green_font_prefix}1.${Font_color_suffix} Müşderi goşmak
+  ${Green_font_prefix}2.${Font_color_suffix} Müşderi pozmak
  ———————————— 
-  ${Green_font_prefix}3.${Font_color_suffix} Получить список пользователей
-  ${Green_font_prefix}4.${Font_color_suffix} Получить ссылки на конфигурации
+  ${Green_font_prefix}3.${Font_color_suffix} Müşderileriň sanawy
+  ${Green_font_prefix}4.${Font_color_suffix} Faýl üçin ssylka almak
  ———————————— 
-  ${Green_font_prefix}7.${Font_color_suffix} Удалить OpenVPN
-  ${Green_font_prefix}8.${Font_color_suffix} Выйти
+  ${Green_font_prefix}7.${Font_color_suffix} OpenVPN-i pozmak
+  ${Green_font_prefix}8.${Font_color_suffix} Çykyş
  ———————————— 
  "
-	read -p "Введите число: " option
+	read -p "sany saýlaň: " option
 	case "$option" in
 		0)
 		clear
@@ -791,7 +791,7 @@ fi
 
 
 check_root(){
-	[[ $EUID != 0 ]] && echo -e "${Error} Скрипт не запущен от root. Пропишите ${Green_background_prefix} sudo su ${Font_color_suffix} И перезапустите программу." && exit 1
+	[[ $EUID != 0 ]] && echo -e "${Error} Dost skript root ulanyjynyň adyndan goýberilmedi. Gaýrat etde ${Green_background_prefix} sudo su ${Font_color_suffix} yazda täzeden goýber." && exit 1
 }
 check_sys(){
 	if [[ -f /etc/redhat-release ]]; then
@@ -815,13 +815,13 @@ check_pid(){
 	PID=`ps -ef |grep -v grep | grep server.py |awk '{print $2}'`
 }
 check_crontab(){
-	[[ ! -e "/usr/bin/crontab" ]] && echo -e "${Error} Отсутствует crontab: для установки на CentOS пропишите yum install crond -y , Debian/Ubuntu: apt-get install cron -y !" && exit 1
+	[[ ! -e "/usr/bin/crontab" ]] && echo -e "${Error} krontab ýok: CentOS ustanowka etmek üçin yum install crond -y diýip ýaz , Debian/Ubuntu: apt-get install cron -y !" && exit 1
 }
 SSR_installation_status(){
-	[[ ! -e ${ssr_folder} ]] && echo -e "${Error} Не найден ShadowsocksR!" && clear && exit 1
+	[[ ! -e ${ssr_folder} ]] && echo -e "${Error} ShadowsocksR! tapylmady" && clear && exit 1
 }
 
-# Настроить правила брандмауэра
+# brandmaueri sazlamak
 Add_iptables(){
 	if [[ ! -z "${ssr_port}" ]]; then
 		iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport ${ssr_port} -j ACCEPT
@@ -878,7 +878,7 @@ Get_User_info(){
 	user_info_get=$(python mujson_mgr.py -l -p "${Get_user_port}")
 	match_info=$(echo "${user_info_get}"|grep -w "### user ")
 	if [[ -z "${match_info}" ]]; then
-		echo -e "${Error} Не удалось получить информацию о пользователе ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Müşderi barada maglumat alyp bolmady ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
 	fi
 	user_name=$(echo "${user_info_get}"|grep -w "user :"|awk -F "user : " '{print $NF}')
 	port=$(echo "${user_info_get}"|grep -w "port :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
@@ -886,13 +886,13 @@ Get_User_info(){
 	method=$(echo "${user_info_get}"|grep -w "method :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
 	protocol=$(echo "${user_info_get}"|grep -w "protocol :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
 	protocol_param=$(echo "${user_info_get}"|grep -w "protocol_param :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
-	[[ -z ${protocol_param} ]] && protocol_param="0(неограниченно)"
+	[[ -z ${protocol_param} ]] && protocol_param="0(çäklendirilmedik)"
 	obfs=$(echo "${user_info_get}"|grep -w "obfs :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
 	#transfer_enable=$(echo "${user_info_get}"|grep -w "transfer_enable :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}'|awk -F "ytes" '{print $1}'|sed 's/KB/ KB/;s/MB/ MB/;s/GB/ GB/;s/TB/ TB/;s/PB/ PB/')
 	#u=$(echo "${user_info_get}"|grep -w "u :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
 	#d=$(echo "${user_info_get}"|grep -w "d :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
 	forbidden_port=$(echo "${user_info_get}"|grep -w "forbidden_port :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
-	[[ -z ${forbidden_port} ]] && forbidden_port="неограниченно"
+	[[ -z ${forbidden_port} ]] && forbidden_port="çäklendirilmedik"
 	speed_limit_per_con=$(echo "${user_info_get}"|grep -w "speed_limit_per_con :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
 	speed_limit_per_user=$(echo "${user_info_get}"|grep -w "speed_limit_per_user :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
 	Get_User_transfer "${port}"
@@ -1023,7 +1023,7 @@ ss_link_qr(){
 	SSbase64=$(urlsafe_base64 "${method}:${password}@${ip}:${port}")
 	SSurl="ss://${SSbase64}"
 	SSQRcode="https://api.qrserver.com/v1/create-qr-code/?data=${SSurl}"
-	ss_link=" SS link : ${Green_font_prefix}${SSurl}${Font_color_suffix} \n SS QR код : ${Green_font_prefix}${SSQRcode}${Font_color_suffix}"
+	ss_link=" SS link : ${Green_font_prefix}${SSurl}${Font_color_suffix} \n SS QR kod : ${Green_font_prefix}${SSQRcode}${Font_color_suffix}"
 }
 ssr_link_qr(){
 	SSRprotocol=$(echo ${protocol} | sed 's/_compatible//g')
@@ -1032,7 +1032,7 @@ ssr_link_qr(){
 	SSRbase64=$(urlsafe_base64 "${ip}:${port}:${SSRprotocol}:${method}:${SSRobfs}:${SSRPWDbase64}")
 	SSRurl="ssr://${SSRbase64}"
 	SSRQRcode="https://api.qrserver.com/v1/create-qr-code/?data=${SSRurl}"
-	ssr_link=" SSR link: ${Purple}${SSRurl}${Font_color_suffix} \n SSR QR код : ${Purple}${SSRQRcode}${Font_color_suffix} \n "
+	ssr_link=" SSR link: ${Purple}${SSRurl}${Font_color_suffix} \n SSR QR kod : ${Purple}${SSRQRcode}${Font_color_suffix} \n "
 }
 ss_ssr_determine(){
 	protocol_suffix=`echo ${protocol} | awk -F "_" '{print $NF}'`
@@ -1065,24 +1065,24 @@ ss_ssr_determine(){
 	fi
 	ssr_link_qr
 }
-# Отображение информации о конфигурации
+# konfigrasiya barada magluamt
 View_User(){
 	clear
 	SSR_installation_status
 	List_port_user
 	while true
 	do
-		echo -e "Введите порт аккаунта"
-		read -e -p "Порт: " View_user_port
-		[[ -z "${View_user_port}" ]] && echo -e "Отмена..." && exit 1
+		echo -e "akkaunt üçin port giriz"
+		read -e -p "Port: " View_user_port
+		[[ -z "${View_user_port}" ]] && echo -e "Goýbolsun..." && exit 1
 		View_user=$(cat "${config_user_mudb_file}"|grep '"port": '"${View_user_port}"',')
 		if [[ ! -z ${View_user} ]]; then
 			Get_User_info "${View_user_port}"
 			View_User_info
 			break
 		else
-			echo -e "${Error} Введите правильный порт !"
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+			echo -e "${Error} Dogry port giriz !"
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 	clear
 	main_menu
 		fi
@@ -1094,27 +1094,27 @@ View_User_info(){
 	[[ -z "${ip}" ]] && Get_IP
 	ss_ssr_determine
 	clear && echo "===================================================" && echo
-	echo -e " Информация о пользователе [${user_name}] ：" && echo
+	echo -e " [${user_name}] müşderi barada maglumat ：" && echo
 	echo -e " IP\t    : ${Green_font_prefix}${ip}${Font_color_suffix}"
-	echo -e " Порт\t    : ${Green_font_prefix}${port}${Font_color_suffix}"
-	echo -e " Пароль\t    : ${Green_font_prefix}${password}${Font_color_suffix}"
-	echo -e " Шифрование : ${Green_font_prefix}${method}${Font_color_suffix}"
-	echo -e " Протокол   : ${Red_font_prefix}${protocol}${Font_color_suffix}"
+	echo -e " Port\t    : ${Green_font_prefix}${port}${Font_color_suffix}"
+	echo -e " Parol\t    : ${Green_font_prefix}${password}${Font_color_suffix}"
+	echo -e " Şifrleme : ${Green_font_prefix}${method}${Font_color_suffix}"
+	echo -e " Protokol   : ${Red_font_prefix}${protocol}${Font_color_suffix}"
 	echo -e " Obfs\t    : ${Red_font_prefix}${obfs}${Font_color_suffix}"
-	echo -e " Количество устройств : ${Green_font_prefix}${protocol_param}${Font_color_suffix}"
-	echo -e " Общая скорость ключа : ${Green_font_prefix}${speed_limit_per_con} KB/S${Font_color_suffix}"
-	echo -e " Скорость соединения у каждого пользователя : ${Green_font_prefix}${speed_limit_per_user} KB/S${Font_color_suffix}"
-	echo -e " Запрещенные порты : ${Green_font_prefix}${forbidden_port} ${Font_color_suffix}"
+	echo -e " Enjam sany : ${Green_font_prefix}${protocol_param}${Font_color_suffix}"
+	echo -e " Açaryň umumy tizligi : ${Green_font_prefix}${speed_limit_per_con} KB/S${Font_color_suffix}"
+	echo -e " Her müşderiniň birikme tizligi : ${Green_font_prefix}${speed_limit_per_user} KB/S${Font_color_suffix}"
+	echo -e " Gadagan portlar : ${Green_font_prefix}${forbidden_port} ${Font_color_suffix}"
 	echo
-	echo -e " Использованный трафик : Upload: ${Green_font_prefix}${u}${Font_color_suffix} + Download: ${Green_font_prefix}${d}${Font_color_suffix} = ${Green_font_prefix}${transfer_enable_Used_2}${Font_color_suffix}"
-	echo -e " Осталось трафика : ${Green_font_prefix}${transfer_enable_Used} ${Font_color_suffix}"
-	echo -e " Всего трафика : ${Green_font_prefix}${transfer_enable} ${Font_color_suffix}"
+	echo -e " Ulanylan Trafik : Upload: ${Green_font_prefix}${u}${Font_color_suffix} + Download: ${Green_font_prefix}${d}${Font_color_suffix} = ${Green_font_prefix}${transfer_enable_Used_2}${Font_color_suffix}"
+	echo -e " Galan Trafik : ${Green_font_prefix}${transfer_enable_Used} ${Font_color_suffix}"
+	echo -e " Umumy trafik : ${Green_font_prefix}${transfer_enable} ${Font_color_suffix}"
 	echo -e "${ss_link}"
 	echo -e "${ssr_link}"
-	echo -e " ${Green_font_prefix} Подсказка: ${Font_color_suffix}
- Откройте ссылку в браузере для получения QR кода。"
+	echo -e " ${Green_font_prefix} Düşündiriş: ${Font_color_suffix}
+ QR kody almak üçin ssylkany brawzerda açyň。"
 	echo && echo "==================================================="
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 	clear
 	main_menu
 }
@@ -1124,119 +1124,119 @@ View_User_info1(){
 	[[ -z "${ip}" ]] && Get_IP
 	ss_ssr_determine
 	clear && echo "===================================================" && echo
-	echo -e " Информация о пользователе [${user_name}] ：" && echo
+	echo -e " [${user_name}] müşderi barada maglumat ：" && echo
 	echo -e " IP\t    : ${Green_font_prefix}${ip}${Font_color_suffix}"
-	echo -e " Порт\t    : ${Green_font_prefix}${port}${Font_color_suffix}"
-	echo -e " Пароль\t    : ${Green_font_prefix}${password}${Font_color_suffix}"
-	echo -e " Шифрование : ${Green_font_prefix}${method}${Font_color_suffix}"
-	echo -e " Протокол   : ${Red_font_prefix}${protocol}${Font_color_suffix}"
+	echo -e " Port\t    : ${Green_font_prefix}${port}${Font_color_suffix}"
+	echo -e " Parol\t    : ${Green_font_prefix}${password}${Font_color_suffix}"
+	echo -e " Şifrleme : ${Green_font_prefix}${method}${Font_color_suffix}"
+	echo -e " Protokol   : ${Red_font_prefix}${protocol}${Font_color_suffix}"
 	echo -e " Obfs\t    : ${Red_font_prefix}${obfs}${Font_color_suffix}"
-	echo -e " Количество устройств : ${Green_font_prefix}${protocol_param}${Font_color_suffix}"
-	echo -e " Общая скорость ключа : ${Green_font_prefix}${speed_limit_per_con} KB/S${Font_color_suffix}"
-	echo -e " Скорость соединения у каждого пользователя : ${Green_font_prefix}${speed_limit_per_user} KB/S${Font_color_suffix}"
-	echo -e " Запрещенные порты : ${Green_font_prefix}${forbidden_port} ${Font_color_suffix}"
+	echo -e " Enjam sany : ${Green_font_prefix}${protocol_param}${Font_color_suffix}"
+	echo -e " Açaryň umumy : ${Green_font_prefix}${speed_limit_per_con} KB/S${Font_color_suffix}"
+	echo -e " Her müşderiniň birikme tizligi : ${Green_font_prefix}${speed_limit_per_user} KB/S${Font_color_suffix}"
+	echo -e " Gadagan portlar : ${Green_font_prefix}${forbidden_port} ${Font_color_suffix}"
 	echo
-	echo -e " Использованный трафик : Upload: ${Green_font_prefix}${u}${Font_color_suffix} + Download: ${Green_font_prefix}${d}${Font_color_suffix} = ${Green_font_prefix}${transfer_enable_Used_2}${Font_color_suffix}"
-	echo -e " Осталось трафика : ${Green_font_prefix}${transfer_enable_Used} ${Font_color_suffix}"
-	echo -e " Всего трафика : ${Green_font_prefix}${transfer_enable} ${Font_color_suffix}"
+	echo -e " Ulanylan Trafik : Upload: ${Green_font_prefix}${u}${Font_color_suffix} + Download: ${Green_font_prefix}${d}${Font_color_suffix} = ${Green_font_prefix}${transfer_enable_Used_2}${Font_color_suffix}"
+	echo -e " Galan Trafik : ${Green_font_prefix}${transfer_enable_Used} ${Font_color_suffix}"
+	echo -e " Umumy trafik : ${Green_font_prefix}${transfer_enable} ${Font_color_suffix}"
 	echo -e "${ss_link}"
 	echo -e "${ssr_link}"
 	echo -e " ${Green_font_prefix} Подсказка: ${Font_color_suffix}
- Откройте ссылку в браузере для получения QR кода。"
+ QR kody almak üçin ssylkany brawzerda açyň。"
 	echo && echo "==================================================="
 }
-# Настройка информации о конфигурации
+# Konfigrasiýa baradaky maglumaty sazlamak
 Set_config_user(){
-	echo -e "${Tip} Не повторять имена!"
+	echo -e "${Tip} Atlar gaýtalanmaly däl!"
 	echo -e "
- ${Green_font_prefix}1.${Font_color_suffix} Имя пользователя (Авто указание даты)
- ${Green_font_prefix}2.${Font_color_suffix} Имя пользователя (Без даты)"
-	read -e -p "(По умолчанию: 1): " num
+ ${Green_font_prefix}1.${Font_color_suffix} ulanyjy ady (aý gün bilen)
+ ${Green_font_prefix}2.${Font_color_suffix} ulanyjy ady (aý günsiz)"
+	read -e -p "(adaty ýagdaýda: 1): " num
 	case "$num" in
 	1)
-	read -e -p "(По умолчанию: Admin): " ssr_user
+	read -e -p "(adaty ýagdaýda: Admin): " ssr_user
 	[[ -z "${ssr_user}" ]] && ssr_user="Admin"
 	ssr_user=$(echo "${ssr_user}_$(date +"%d/%m")" |sed 's/ //g')
-	echo && echo ${Separator_1} && echo -e "    Имя пользователя : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "    ulanyjy ady : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
 	;;
 	2)
-	read -e -p "(По умолчанию: Admin): " ssr_user
+	read -e -p "(adaty ýagdaýda: Admin): " ssr_user
 	[[ -z "${ssr_user}" ]] && ssr_user="Admin"
 	ssr_user=$(echo "${ssr_user}"|sed 's/ //g')
-	echo && echo ${Separator_1} && echo -e "    Имя пользователя : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "    ulanyjy ady : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
 	;;
 	*)
-	read -e -p "(По умолчанию: Admin): " ssr_user
+	read -e -p "(adaty ýagdaýda: Admin): " ssr_user
 	[[ -z "${ssr_user}" ]] && ssr_user="Admin"
 	ssr_user=$(echo "${ssr_user}_$(date +"%d/%m")" |sed 's/ //g')
-	echo && echo ${Separator_1} && echo -e "    Имя пользователя : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "    ulanjy ady : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
 	;;
 esac
 }
 Set_config_port(){
-	echo -e "Порт
- ${Green_font_prefix}1.${Font_color_suffix} Авто
- ${Green_font_prefix}2.${Font_color_suffix} Вручную" 
-	read -e -p "По умолчанию (1.Авто): " how_to_port
+	echo -e "port
+ ${Green_font_prefix}1.${Font_color_suffix} awto
+ ${Green_font_prefix}2.${Font_color_suffix} özüň girizmek" 
+	read -e -p "adaty ýagdaýda (1.awto): " how_to_port
 	[[ -z "${how_to_port}" ]] && how_to_port="1"
 	if [[ ${how_to_port} == "1" ]]; then
-		echo -e "Порт автоматически сгенерирован."
+		echo -e "Port awtomat usulda girizildi."
 		ssr_port=$(shuf -i 1000-9999 -n 1)
 		while true
 		do
 		echo $((${ssr_port}+0)) &>/dev/null
 		if [[ $? == 0 ]]; then
 		if [[ ${ssr_port} -ge 1 ]] && [[ ${ssr_port} -le 65535 ]]; then
-			echo && echo ${Separator_1} && echo -e "    Порт: : ${Green_font_prefix}${ssr_port}${Font_color_suffix}" && echo ${Separator_1} && echo
+			echo && echo ${Separator_1} && echo -e "    Port: : ${Green_font_prefix}${ssr_port}${Font_color_suffix}" && echo ${Separator_1} && echo
 			break
 		else
-			echo -e "${Error} Введите корректный порт(1-65535)"
+			echo -e "${Error} Port giriz(1-65535)"
 		fi
 	else
-		echo -e "${Error} Введите корректный порт(1-65535)"
+		echo -e "${Error} Port giriz(1-65535)"
 	fi
 	done
 	elif [[ ${how_to_port} == "2" ]]; then
 		while true
 		do
-			read -e -p "Порт: " ssr_port
+			read -e -p "Port: " ssr_port
 			[[ -z "$ssr_port" ]] && break
 			echo $((${ssr_port}+0)) &>/dev/null
 			if [[ $? == 0 ]]; then
 				if [[ ${ssr_port} -ge 1 ]] && [[ ${ssr_port} -le 65535 ]]; then
-					echo && echo ${Separator_1} && echo -e "    Порт: : ${Green_font_prefix}${ssr_port}${Font_color_suffix}" && echo ${Separator_1} && echo
+					echo && echo ${Separator_1} && echo -e "    Port: : ${Green_font_prefix}${ssr_port}${Font_color_suffix}" && echo ${Separator_1} && echo
 					break
 				else
-					echo -e "${Error} Введите корректный порт(1-65535)"
+					echo -e "${Error} Port giriz(1-65535)"
 				fi
 			else
-				echo -e "${Error} Введите корректный порт(1-65535)"
+				echo -e "${Error} Port giriz(1-65535)"
 			fi
 		done
 	else 
-		echo -e "Порт автоматически сгенерирован."
+		echo -e "Port awtomat usulda girizildi."
 		ssr_port=$(shuf -i 1000-9999 -n 1)
 		while true
 		do
 		echo $((${ssr_port}+0)) &>/dev/null
 		if [[ $? == 0 ]]; then
 			if [[ ${ssr_port} -ge 1 ]] && [[ ${ssr_port} -le 65535 ]]; then
-			echo && echo ${Separator_1} && echo -e "    Порт: : ${Green_font_prefix}${ssr_port}${Font_color_suffix}" && echo ${Separator_1} && echo
+			echo && echo ${Separator_1} && echo -e "    Port: : ${Green_font_prefix}${ssr_port}${Font_color_suffix}" && echo ${Separator_1} && echo
 			break
 			else
-			echo -e "${Error} Введите корректный порт(1-65535)"
+			echo -e "${Error} Port giriz(1-65535)"
 			fi
 		else
-		echo -e "${Error} Введите корректный порт(1-65535)"
+		echo -e "${Error} Port giriz(1-65535)"
 		fi
 		done
 	fi
 }
 Set_config_password(){
-	echo -e "Пароль:
- ${Green_font_prefix}1.${Font_color_suffix} Пароль = порт
- ${Green_font_prefix}2.${Font_color_suffix} Рандомный пароль"
-	read -e -p "(По умолчанию: 2. Рандомный пароль): " how_to_pass
+	echo -e "Parol:
+ ${Green_font_prefix}1.${Font_color_suffix} Parol = Port
+ ${Green_font_prefix}2.${Font_color_suffix} Tötänleýin parol"
+	read -e -p "(adaty ýagdaýda: 2. Tötänleýin parol): " how_to_pass
 	[[ -z "${how_to_pass}" ]] && how_to_pass="2"
 	if [[ ${how_to_pass} == "1" ]]; then
 		ssr_password=${ssr_port}
@@ -1245,10 +1245,10 @@ Set_config_password(){
 	else 
 		ssr_password=$(date +%s%N | md5sum | head -c 16)
 	fi
-	echo && echo ${Separator_1} && echo -e "    Пароль : ${Green_font_prefix}${ssr_password}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "    Parol : ${Green_font_prefix}${ssr_password}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_config_method(){
-	echo -e "Выберите метод шифрования:
+	echo -e "Şifrleme görnüşi:
 ————————————    
  ${Green_font_prefix} 1.${Font_color_suffix} none
 ————————————
@@ -1272,7 +1272,7 @@ Set_config_method(){
  ${Green_font_prefix}15.${Font_color_suffix} chacha20
  ${Green_font_prefix}16.${Font_color_suffix} chacha20-ietf
 ————————————"
-	read -e -p "(По умолчанию: 16. chacha20-ietf): " ssr_method
+	read -e -p "(adaty ýagdaýda: 16. chacha20-ietf): " ssr_method
 	[[ -z "${ssr_method}" ]] && ssr_method="16"
 	if [[ ${ssr_method} == "1" ]]; then
 		ssr_method="none"
@@ -1309,7 +1309,7 @@ Set_config_method(){
 	else
 		ssr_method="chacha20-ietf"
 	fi
-	echo && echo ${Separator_1} && echo -e "    Шифрование : ${Green_font_prefix}${ssr_method}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "    Şifrleme : ${Green_font_prefix}${ssr_method}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_config_protocol(){
 	ssr_protocol="origin"
@@ -1320,38 +1320,38 @@ Set_config_obfs(){
 Set_config_protocol_param(){
 	while true
 	do
-	echo -e "${Tip} Ограничение на количество устройств:"
-	read -e -p "(По умолчанию: Без ограничний): " ssr_protocol_param
+	echo -e "${Tip} Näçe enjamda ulanmakçy:"
+	read -e -p "(adaty ýagdaýda: çäklendirilmedi): " ssr_protocol_param
 	[[ -z "$ssr_protocol_param" ]] && ssr_protocol_param="" && echo && break
 	echo $((${ssr_protocol_param}+0)) &>/dev/null
 	if [[ $? == 0 ]]; then
 		if [[ ${ssr_protocol_param} -ge 1 ]] && [[ ${ssr_protocol_param} -le 9999 ]]; then
-			echo && echo ${Separator_1} && echo -e "    Лимит устройств : ${Green_font_prefix}${ssr_protocol_param}${Font_color_suffix}" && echo ${Separator_1} && echo
+			echo && echo ${Separator_1} && echo -e "    enjam sany : ${Green_font_prefix}${ssr_protocol_param}${Font_color_suffix}" && echo ${Separator_1} && echo
 			break
 		else
-			echo -e "${Error} Пожалуйста, введите правильный номер(1-9999)"
+			echo -e "${Error} Dogry sany bellesene(1-9999)"
 		fi
 	else
-		echo -e "${Error} Пожалуйста, введите правильный номер(1-9999)"
+		echo -e "${Error} Dogry nomer bellesene(1-9999)"
 	fi
 	done
 }
 Set_config_speed_limit_per_con(){
 	while true
 	do
-	echo -e "Ограничение скорости на порт (единица измерения: КБ/с)"
-	read -e -p "(По умолчанию: Без ограничний): " ssr_speed_limit_per_con
+	echo -e "Porta tizligi çäklendirmek (ölçeg birligi: КB/s)"
+	read -e -p "(adaty ýagdaýda: çäklendirilmedik): " ssr_speed_limit_per_con
 	[[ -z "$ssr_speed_limit_per_con" ]] && ssr_speed_limit_per_con=0 && echo && break
 	echo $((${ssr_speed_limit_per_con}+0)) &>/dev/null
 	if [[ $? == 0 ]]; then
 		if [[ ${ssr_speed_limit_per_con} -ge 1 ]] && [[ ${ssr_speed_limit_per_con} -le 131072 ]]; then
-			echo && echo ${Separator_1} && echo -e "    Ограничение скорости на порт : ${Green_font_prefix}${ssr_speed_limit_per_con} KB/S${Font_color_suffix}" && echo ${Separator_1} && echo
+			echo && echo ${Separator_1} && echo -e "    Porta tizligi çäklendirmek : ${Green_font_prefix}${ssr_speed_limit_per_con} KB/S${Font_color_suffix}" && echo ${Separator_1} && echo
 			break
 		else
-			echo -e "${Error} Пожалуйста, введите правильный номер(1-131072)"
+			echo -e "${Error} Dogry nomer bellesene(1-131072)"
 		fi
 	else
-		echo -e "${Error} Пожалуйста, введите правильный номер(1-131072)"
+		echo -e "${Error} Dogry nomer bellesene(1-131072)"
 	fi
 	done
 }
@@ -1359,19 +1359,19 @@ Set_config_speed_limit_per_user(){
 	while true
 	do
 	echo
-	echo -e "Ограничение скорости на одно устройство (единицы измерения: КБ/с)"
-	read -e -p "(По умолчанию: Без ограничний): " ssr_speed_limit_per_user
+	echo -e "Bir enjamyn tizligini çäklendirmek (ölçeg birligi: КB/s)"
+	read -e -p "(adaty ýagdaýda: çäklendirilmedik): " ssr_speed_limit_per_user
 	[[ -z "$ssr_speed_limit_per_user" ]] && ssr_speed_limit_per_user=0 && echo && break
 	echo $((${ssr_speed_limit_per_user}+0)) &>/dev/null
 	if [[ $? == 0 ]]; then
 		if [[ ${ssr_speed_limit_per_user} -ge 1 ]] && [[ ${ssr_speed_limit_per_user} -le 131072 ]]; then
-			echo && echo ${Separator_1} && echo -e "    Ограничение скорости на одно устройство : ${Green_font_prefix}${ssr_speed_limit_per_user} KB/S${Font_color_suffix}" && echo ${Separator_1} && echo
+			echo && echo ${Separator_1} && echo -e "    Bir enjamyn tizligini çäklendirmek : ${Green_font_prefix}${ssr_speed_limit_per_user} KB/S${Font_color_suffix}" && echo ${Separator_1} && echo
 			break
 		else
-			echo -e "${Error} Пожалуйста, введите правильный номер(1-131072)"
+			echo -e "${Error} Dogry nomer bellesene(1-131072)"
 		fi
 	else
-		echo -e "${Error} Пожалуйста, введите правильный номер(1-131072)"
+		echo -e "${Error} Dogry nomer bellesene(1-131072)"
 	fi
 	done
 }
@@ -1379,19 +1379,19 @@ Set_config_transfer(){
 	while true
 	do
 	echo
-	echo -e "Ограничение трафика на один порт (От 1 ГБ до 838868 ГБ)"
-	read -e -p "(По умолчанию: Безлимит): " ssr_transfer
+	echo -e "Port trafik boýunça çäklendirmek (От 1 GB dan 838868 GB a çenli)"
+	read -e -p "(adaty ýagdaýda: limitsiz): " ssr_transfer
 	[[ -z "$ssr_transfer" ]] && ssr_transfer="838868" && echo && break
 	echo $((${ssr_transfer}+0)) &>/dev/null
 	if [[ $? == 0 ]]; then
 		if [[ ${ssr_transfer} -ge 1 ]] && [[ ${ssr_transfer} -le 838868 ]]; then
-			echo && echo ${Separator_1} && echo -e "    Общий трафик : ${Green_font_prefix}${ssr_transfer} GB${Font_color_suffix}" && echo ${Separator_1} && echo
+			echo && echo ${Separator_1} && echo -e "    Umumy trafik : ${Green_font_prefix}${ssr_transfer} GB${Font_color_suffix}" && echo ${Separator_1} && echo
 			break
 		else
-			echo -e "${Error} Пожалуйста, введите правильный номер(1-838868)"
+			echo -e "${Error} Dogry nomer bellesene(1-838868)"
 		fi
 	else
-		echo -e "${Error} Пожалуйста, введите правильный номер(1-838868)"
+		echo -e "${Error} Dogry nomer bellesene(1-838868)"
 	fi
 	done
 }
@@ -1409,39 +1409,39 @@ Set_config_enable(){
 		if [[ "${ssr_port}" == "${port_jq}" ]]; then
 			enable=$(${jq_file} ".[${integer}].enable" "${config_user_mudb_file}")
 			echo -e "enable=${enable}"
-			[[ "${enable}" == "null" ]] && echo -e "${Error} Не удалось получить отключенный статус текущего порта [${ssr_port}]!" && exit 1
+			[[ "${enable}" == "null" ]] && echo -e "${Error} Bu portuň ýapyk statusyny almak başartmady [${ssr_port}]!" && exit 1
 			ssr_port_num=$(cat "${config_user_mudb_file}"|grep -n '"port": '${ssr_port}','|awk -F ":" '{print $1}')
 			echo -e "ssr_port_num=${ssr_port_num}"
-			[[ "${ssr_port_num}" == "null" ]] && echo -e "${Error} Не удалось получить количество строк текущего порта[${ssr_port}]!" && exit 1
+			[[ "${ssr_port_num}" == "null" ]] && echo -e "${Error} Bu portyň setir sanyny almak başartmady[${ssr_port}]!" && exit 1
 			ssr_enable_num=$(echo $((${ssr_port_num}-5)))
 			echo -e "ssr_enable_num=${ssr_enable_num}"
 			break
 		fi
 	done
 	if [[ "${enable}" == "1" ]]; then
-		echo -e "Порт [${ssr_port}] находится в состоянии：${Green_font_prefix}включен${Font_color_suffix} , сменить статус на ${Red_font_prefix}выключен${Font_color_suffix} ?[Y/n]"
-		read -e -p "(По умолчанию: Y): " ssr_enable_yn
+		echo -e "[${ssr_port}] portyň：${Green_font_prefix}açyk${Font_color_suffix} ýagdaýyny ${Red_font_prefix}ýapyk${Font_color_suffix} ýagdaýa geçirmek ?[Y/n]"
+		read -e -p "(adaty ýagdaýda: Y): " ssr_enable_yn
 		[[ -z "${ssr_enable_yn}" ]] && ssr_enable_yn="y"
 		if [[ "${ssr_enable_yn}" == [Yy] ]]; then
 			ssr_enable="0"
 		else
-				read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+				read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 				clear
 	main_menu
 		fi
 	elif [[ "${enable}" == "0" ]]; then
-		echo -e "Порт [${ssr_port}] находится в состоянии：${Green_font_prefix}отключен${Font_color_suffix} , сменить статус на  ${Red_font_prefix}включен${Font_color_suffix} ?[Y/n]"
-		read -e -p "(По умолчанию: Y): " ssr_enable_yn
+		echo -e "[${ssr_port}] portuň：${Green_font_prefix}отключен${Font_color_suffix} ýagdaýyny ,  ${Red_font_prefix}açyk${Font_color_suffix} ýagdaýa geçmek ?[Y/n]"
+		read -e -p "(adaty ýagdaýda: Y): " ssr_enable_yn
 		[[ -z "${ssr_enable_yn}" ]] && ssr_enable_yn = "y"
 		if [[ "${ssr_enable_yn}" == [Yy] ]]; then
 			ssr_enable="1"
 		else
-			read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+			read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 			clear
 	main_menu
 		fi
 	else
-		echo -e "${Error} Какая то ошибка с акком, гг[${enable}] !" && exit 1
+		echo -e "${Error} akkauntda bir ýalňyşlyga bar [${enable}] !" && exit 1
 	fi
 }
 Set_user_api_server_pub_addr(){
@@ -1449,21 +1449,21 @@ Set_user_api_server_pub_addr(){
 	if [[ "${addr}" == "Modify" ]]; then
 		server_pub_addr=$(cat ${config_user_api_file}|grep "SERVER_PUB_ADDR = "|awk -F "[']" '{print $2}')
 		if [[ -z ${server_pub_addr} ]]; then
-			echo -e "${Error} Не получилось получить IP сервера！" && exit 1
+			echo -e "${Error} Serweriň IP salgysyny almak başartmady！" && exit 1
 		else
-			echo -e "${Info} Текущий IP： ${Green_font_prefix}${server_pub_addr}${Font_color_suffix}"
+			echo -e "${Info} Şu wagtky IP： ${Green_font_prefix}${server_pub_addr}${Font_color_suffix}"
 		fi
 	fi
-	echo "Введите IP сервера"
-	read -e -p "(Автоматическое определние IP при нажатии Enter): " ssr_server_pub_addr
+	echo "Serweriň IP salgysyny giriz"
+	read -e -p "(ENTER düwmäni basanda IPni awtomat usulda saýlaýar): " ssr_server_pub_addr
 	if [[ -z "${ssr_server_pub_addr}" ]]; then
 		Get_IP
 		if [[ ${ip} == "VPS_IP" ]]; then
 			while true
 			do
-			read -e -p "${Error} Введите IP сервера сами!" ssr_server_pub_addr
+			read -e -p "${Error} Serweriň IP salgysyny öziň giriz!" ssr_server_pub_addr
 			if [[ -z "$ssr_server_pub_addr" ]]; then
-				echo -e "${Error} Не может быть пустым！"
+				echo -e "${Error} Boş bolmaýar！"
 			else
 				break
 			fi
@@ -1472,32 +1472,32 @@ Set_user_api_server_pub_addr(){
 			ssr_server_pub_addr="${ip}"
 		fi
 	fi
-	echo && echo ${Separator_1} && echo -e "    IP сервера : ${Green_font_prefix}${ssr_server_pub_addr}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "   serweriň IP salgysy : ${Green_font_prefix}${ssr_server_pub_addr}${Font_color_suffix}" && echo ${Separator_1} && echo
 }
 Set_config_user_fast(){
-	echo -e "${Tip} Не повторять имена!"
+	echo -e "${Tip} Atlar gaýtalanmaly däl!"
 	echo -e "
- ${Green_font_prefix}1.${Font_color_suffix} Имя пользователя (Авто указание даты)
- ${Green_font_prefix}2.${Font_color_suffix} Имя пользователя (Без даты)"
-	read -e -p "(По умолчанию: 1): " num
+ ${Green_font_prefix}1.${Font_color_suffix} Ulanyjy ady (aý gün bilen)
+ ${Green_font_prefix}2.${Font_color_suffix} alanyjy ady (aý günsiz)"
+	read -e -p "(adaty ýagdaýda: 1): " num
 	case "$num" in
 	1)
-	read -e -p "(По умолчанию: Admin): " ssr_user
+	read -e -p "(adaty ýagdaýda: Admin): " ssr_user
 	[[ -z "${ssr_user}" ]] && ssr_user="Admin"
 	ssr_user=$(echo "${ssr_user}_$(date +"%d/%m/%y")" |sed 's/ //g')
-	echo && echo ${Separator_1} && echo -e "    Имя пользователя : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "    ulanyjy ady : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
 	;;
 	2)
-	read -e -p "(По умолчанию: Admin): " ssr_user
+	read -e -p "(adaty ýagdaýda: Admin): " ssr_user
 	[[ -z "${ssr_user}" ]] && ssr_user="Admin"
 	ssr_user=$(echo "${ssr_user}"|sed 's/ //g')
-	echo && echo ${Separator_1} && echo -e "    Имя пользователя : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "    ulanyjy ady : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
 	;;
 	*)
-	read -e -p "(По умолчанию: Admin): " ssr_user
+	read -e -p "(adaty ýagdaýda: Admin): " ssr_user
 	[[ -z "${ssr_user}" ]] && ssr_user="Admin"
 	ssr_user=$(echo "${ssr_user}_$(date +"%d/%m/%y")" |sed 's/ //g')
-	echo && echo ${Separator_1} && echo -e "    Имя пользователя : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
+	echo && echo ${Separator_1} && echo -e "    ulanyjy ady : ${Green_font_prefix}${ssr_user}${Font_color_suffix}" && echo ${Separator_1} && echo
 	;;
 esac
 }
@@ -1594,15 +1594,15 @@ Set_config_all(){
 		Set_config_forbid
 	fi
 }
-# Изменить информацию о конфигурации
+# kanfigrasiýa barada maglumat özgertmek
 Modify_config_password(){
 	clear
 	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -k "${ssr_password}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
-		echo -e "${Error} Не удалось изменить пароль пользователя ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} ulanyjynyň parolyny üýtgedip bolmady ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
-		echo -e "${Info} Пароль пользователя успешно изменен ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} (Может занять около 10 секунд для обновления конфигурации)"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} Ulanyjynyň paroly üstünlikli üýtgedildi ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} (10 sekunt ýaly wagtyňy almagy mümkin)"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 	main_menu
 	fi
@@ -1611,10 +1611,10 @@ Modify_config_method(){
 	clear
 	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -m "${ssr_method}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
-		echo -e "${Error} Не удалось изменить шифрование ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Şifrlemäni üýtgedip bolmady ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
-		echo -e "${Info} Шифрование успешно изменено ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} (Может занять около 10 секунд для обновления конфигурации)"
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} Şifrleme üstünlikli üýtgedildi ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} (10 sekunt ýaly wagtyňy almagy mümkin)"
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 	clear
 	main_menu
 	fi
@@ -1623,10 +1623,10 @@ Modify_config_protocol(){
 	clear
 	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -O "${ssr_protocol}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
-		echo -e "${Error} Не удалось изменить протокол ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Protokoly üýtgedip bolmady ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
-		echo -e "${Info} Протокол успешно изменен ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} (Может занять около 10 секунд для обновления конфигурации)"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} Prototkol üýtgedildi ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} (10 sekunt ýaly wagtyňy almagy mümkin)"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 	main_menu
 	fi
@@ -1635,10 +1635,10 @@ Modify_config_obfs(){
 	clear
 	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -o "${ssr_obfs}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
-		echo -e "${Error} Не удалось изменить Obfs plugin ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Obfs plagini üýtgedip bolmady ${Green_font_prefix}[port: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
-		echo -e "${Info} Obfs plugin успешно изменен ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} (Может занять около 10 секунд для обновления конфигурации)"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} Obfs plagin üýtgedildi ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} (10 sekunt ýaly wagtyňy almagy mümkin)"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 	main_menu
 	fi
@@ -1647,10 +1647,10 @@ Modify_config_protocol_param(){
 	clear
 	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -G "${ssr_protocol_param}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
-		echo -e "${Error} Не удалось изменить лимит устройств ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Enjemyň limitini üýtgedip bolmady ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
-		echo -e "${Info} Лимит устройств успешно изменен ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} (Может занять около 10 секунд для обновления конфигурации)"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} Enjemyň limiti üýtgedildi ${Green_font_prefix}[port: ${ssr_port}]${Font_color_suffix} (10 sekunt ýaly wagtyňy almagy mümkin)"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 	main_menu
 	fi
@@ -1659,10 +1659,10 @@ Modify_config_speed_limit_per_con(){
 	clear
 	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -s "${ssr_speed_limit_per_con}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
-		echo -e "${Error} Не удалось изменить лимит скорости ключа ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Açaryň tizligini üýtgedip bolmady ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
-		echo -e "${Info} Лимит скорости ключа успешно изменен ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} (Может занять около 10 секунд для обновления конфигурации)"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} Açaryň tizligi üýtgedildi ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} (10 sekunt ýaly wagtyňy almagy mümkin)"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 	main_menu
 	fi
@@ -1671,10 +1671,10 @@ Modify_config_speed_limit_per_user(){
 	clear
 	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -S "${ssr_speed_limit_per_user}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
-		echo -e "${Error} Не удалось изменить лимит скорости пользователей ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Ulanyjynyň tizligini üýtgedip bolmady ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
-		echo -e "${Info} Лимит скорости пользователей успешно изменен ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} (Может занять около 10 секунд для обновления конфигурации)"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} Ulanyjynyň tizligi üýtgedildi ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} (10 sekunt ýaly wagtyňy almagy mümkin)"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 	main_menu
 	fi
@@ -1687,10 +1687,10 @@ Modify_config_transfer(){
 	clear
 	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -t "${ssr_transfer}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
-		echo -e "${Error} Не удалось изменить общий трафик пользователя ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Ulanyjynyň umumy trafigini üýtgedip bolmady ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
-		echo -e "${Info} Общий трафик пользователя успешно изменен ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} (Может занять около 10 секунд для обновления конфигурации)"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} Ulanyjynyň umumy trafigi üýtgedildi ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} (10 sekunt ýaly wagtyňy almagy mümkin)"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 	main_menu
 	fi
@@ -1699,10 +1699,10 @@ Modify_config_forbid(){
 	clear
 	match_edit=$(python mujson_mgr.py -e -p "${ssr_port}" -f "${ssr_forbid}"|grep -w "edit user ")
 	if [[ -z "${match_edit}" ]]; then
-		echo -e "${Error} Не удалось изменить запрещенные порты пользователя ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Gadagan edilen Porty üýtgedip bolmady ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} " && exit 1
 	else
-		echo -e "${Info} Запрещенные порты пользователя успешно изменены ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} (Может занять около 10 секунд для обновления конфигурации)"
-		read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+		echo -e "${Info} Gadagan edilen Port üýtgedildi ${Green_font_prefix}[Port: ${ssr_port}]${Font_color_suffix} (10 sekunt ýaly wagtyňy almagy mümkin)"
+		read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 		clear
 	main_menu
 	fi
@@ -1725,14 +1725,14 @@ Modify_config_all(){
 	Modify_config_speed_limit_per_user
 	Modify_config_transfer
 	Modify_config_forbid
-	read -n1 -r -p "Нажмите Enter для возврата в главное меню..."
+	read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTERi bas..."
 	clear
 	main_menu
 }
 Check_python(){
 	python_ver=`python -h`
 	if [[ -z ${python_ver} ]]; then
-		echo -e "${Info} Python не установлен, начинаю установку..."
+		echo -e "${Info} Python ustanowka edilmedik, etmäne başlaýan..."
 		if [[ ${release} == "centos" ]]; then
 			yum install -y python
 		else
@@ -1758,7 +1758,7 @@ Debian_apt(){
 		apt-get install -y vim unzip cron
 	fi
 }
-# Скачать ShadowsocksR
+# ShadowsocksRy ýüklemek
 Download_SSR(){
 	cd "/usr/local"
 	wget -N --no-check-certificate "https://github.com/ToyoDAdoubiBackup/shadowsocksr/archive/manyuser.zip"
