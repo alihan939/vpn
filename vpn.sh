@@ -4,14 +4,15 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"$
 
-############################## Скрипты #####################################
+############################## SKRIPTLER #####################################
 clear
 
 #=================================================
-#   System Required: CentOS 6+/Debian 6+/Ubuntu 14.04+
-#   Description: Shadowsock scripti stanowka et
-#   Version: 1.0.26
-#   Author: Alparslan
+#   Ustanowka edip bolýan OSlar: CentOS 6+/Debian 6+/Ubuntu 14.04+
+#   Düşündiriş: Shadowsock scripti stanowka et
+#   Wersiýasy: 1.0.26
+#   Awtor: Alparslan
+#   Telegram: @alparslan_93
 #=================================================
 
 sh_ver="3.0"
@@ -32,12 +33,12 @@ jq_file="${ssr_folder}/jq"
 
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m" && Green="\033[32m" && Red="\033[31m" && Yellow="\033[33m" && Blue='\033[34m' && Purple='\033[35m' && Ocean='\033[36m' && Black='\033[37m' && Morg="\033[5m" && Reverse="\033[7m" && Font="\033[1m"
-Info="${Green_font_prefix}[Информация]${Font_color_suffix}"
-Error="${Red_font_prefix}[Ошибка]${Font_color_suffix}"
-Tip="${Green_font_prefix}[Заметка]${Font_color_suffix}"
+Info="${Green_font_prefix}[Maglumat]${Font_color_suffix}"
+Error="${Red_font_prefix}[Ýalňyşlyk]${Font_color_suffix}"
+Tip="${Green_font_prefix}[Bellik]${Font_color_suffix}"
 Separator_1="——————————————————————————————"
 
-# Обычный OpenVPN
+# Ýönekeý OpenVPN
 Openvpnnyr_install(){
 #!/bin/bash
 #
@@ -49,7 +50,7 @@ sh_ver="10.0"
 
 # Detect Debian users running the script with "sh" instead of bash
 if readlink /proc/$$/exe | grep -q "dash"; then
-	echo 'Запустите скрипт через BASH'
+	echo 'Skripti BASH komandaň komegi bilen başlaň'
 	exit
 fi
 
@@ -58,7 +59,7 @@ read -N 999999 -t 0.001
 
 # Detect OpenVZ 6
 if [[ $(uname -r | cut -d "." -f 1) -eq 2 ]]; then
-	echo "Обновите систему"
+	echo "Sistemany täzeleň (obnowit ediň)"
 	exit
 fi
 
@@ -81,22 +82,22 @@ elif [[ -e /etc/fedora-release ]]; then
 	os_version=$(grep -oE '[0-9]+' /etc/fedora-release | head -1)
 	group_name="nobody"
 else
-	echo "Система не поддерживается."
+	echo "Sistema götermeýär."
 	exit
 fi
 
 if [[ "$os" == "ubuntu" && "$os_version" -lt 1804 ]]; then
-	echo "Версия Ubuntu слишком стара (необходим Ubuntu 18.04+)"
+	echo "Ubunty wersiýasy kone (hökmany iň pes wersiýa: Ubuntu 18.04+)"
 	exit
 fi
 
 if [[ "$os" == "debian" && "$os_version" -lt 9 ]]; then
-	echo "Для скрипта необходим Debian 9+."
+	echo "Skript üçin hökmany Debian 9+ bolmaly."
 	exit
 fi
 
 if [[ "$os" == "centos" && "$os_version" -lt 7 ]]; then
-	echo "Для скрипта необходим Centos 7+."
+	echo "Skript üçin hökmany Centos 7+ bolmaly."
 	exit
 fi
 
@@ -107,12 +108,12 @@ if ! grep -q sbin <<< "$PATH"; then
 fi
 
 if [[ "$EUID" -ne 0 ]]; then
-	echo "Используйте sudo su либо sudo (название скрипта)"
+	echo "Sudo su ýa-da sudo (skriptin ady) komandany ýazyň"
 	exit
 fi
 
 if [[ ! -e /dev/net/tun ]] || ! ( exec 7<>/dev/net/tun ) 2>/dev/null; then
-	echo "Драйвер TUN не установлен."
+	echo "TUN driwer ustanowka edilmedik."
 	exit
 fi
 
@@ -124,7 +125,7 @@ adduser(){
 case "$num" in
 	1)
 	echo
-	echo "Müşderiniň adyny saýlan:"
+	echo "Ulanyjynyň adyny saýlan:"
 	read -p "Ady: " unsanitized_client
 	client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	while [[ -z "$client" || -e /etc/openvpn/server/easy-rsa/pki/issued/"$client".crt ]]; do
@@ -143,7 +144,7 @@ case "$num" in
 	echo "-------------------------"
 	echo "----------------"
 	echo "---------"
-	echo -e "$linktofile - Müşderiniň konfigrasiýa faýlynyň ssylkasy $client"
+	echo -e "$linktofile - Ulanyjynyň konfigrasiýa faýlynyň ssylkasy $client"
 	echo "---------"
 	echo "----------------"
 	echo "-------------------------"
@@ -153,7 +154,7 @@ case "$num" in
 	;;
 	2)
 	echo
-	echo "Müşderi üçin at saýlaň:"
+	echo "Ulanyjy üçin at saýlaň:"
 	read -p "Ady: " unsanitized_client
 	client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	while [[ -z "$client" || -e /etc/openvpn/server/easy-rsa/pki/issued/"$client".crt ]]; do
@@ -172,7 +173,7 @@ case "$num" in
 	echo "-------------------------"
 	echo "----------------"
 	echo "---------"
-	echo -e "$linktofile - Müşderiniň konfigrasiýa faýlynyň ssylkasy $client"
+	echo -e "$linktofile - Ulanyjynyň konfigrasiýa faýlynyň ssylkasy $client"
 	echo "---------"
 	echo "----------------"
 	echo "-------------------------"
@@ -182,7 +183,7 @@ case "$num" in
 	;;
 	*)
 		echo
-	echo "Müşderi üçin at saýlaň:"
+	echo "Ulanyjy üçin at saýlaň:"
 	read -p "Ady: " unsanitized_client
 	client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
 	while [[ -z "$client" || -e /etc/openvpn/server/easy-rsa/pki/issued/"$client".crt ]]; do
@@ -201,7 +202,7 @@ case "$num" in
 	echo "-------------------------"
 	echo "----------------"
 	echo "---------"
-	echo -e "$linktofile - Müşderiniň konfigrasiýa faýlynyň ssylkasy $client"
+	echo -e "$linktofile - Ulanyjynyň konfigrasiýa faýlynyň ssylkasy $client"
 	echo "---------"
 	echo "----------------"
 	echo "-------------------------"
@@ -215,7 +216,7 @@ get_users_list(){
 	number_of_clients=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c "^V")
 	if [[ "$number_of_clients" = 0 ]]; then
 		echo
-		echo "Dost müşderi ýoga, nädip pozjak?!"
+		echo "Dost ulanyjy ýoga, nädip pozjak?!"
 			read -n1 -r -p "Ozalky menýuwa dolanmak üçin ENTER düwma basyň..."
    ovpn_menu
 	fi
@@ -230,16 +231,16 @@ deleteuser(){
 				number_of_clients=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c "^V")
 			if [[ "$number_of_clients" = 0 ]]; then
 				echo
-				echo "Dost müşderi ýoga, nädip pozjak?!"
+				echo "Dost ulanyjy ýoga, nädip pozjak?!"
 				exit
 			fi
 			echo
-			echo "Pozmaga degişli müşderi:"
+			echo "Pozmaga degişli ulanyjy:"
 			tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | nl -s ') '
-			read -p "Müşderi: " client_number
+			read -p "Ulanyjy: " client_number
 			until [[ "$client_number" =~ ^[0-9]+$ && "$client_number" -le "$number_of_clients" ]]; do
 				echo "$client_number: Ýalňyş girizdiň."
-				read -p "Müşderi: " client_number
+				read -p "Ulanyjy: " client_number
 			done
 			client=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | sed -n "$client_number"p)
 			echo
@@ -260,12 +261,12 @@ deleteuser(){
 				rm "/root/$client.ovpn" 
 				clear
 				echo "$client pozuldy!"
-				read -e -p "Ýenede müşderi pozjakmy?[Y/n]:" delyn
+				read -e -p "Ýenede ulanyjy pozjakmy?[Y/n]:" delyn
 				[[ -z ${delyn} ]] && delyn="y"
 				if [[ ${delyn} == [Nn] ]]; then
                 	 ovpn_menu
 				else
-					echo -e "${Info} Müşderi pozmak dowam edilýär..."
+					echo -e "${Info} Ulanyjy pozmak dowam edilýär..."
 					deleteuser
 				fi
 			else
@@ -278,22 +279,22 @@ showlink(){
 	number_of_clients=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep -c "^V")
 	if [[ "$number_of_clients" = 0 ]]; then
 		echo
-		echo "Dost ýok müşderiň ssylkasyny alyp bolmaýar?!"
+		echo "Dost ýok ulanyjynyň ssylkasyny alyp bolmaýar?!"
 		exit
 	fi
 		echo
-		echo "Haýsy müşderiň ssylkasyny alasyn gelýär?:"
+		echo "Haýsy ulanyjynyň ssylkasyny alasyn gelýär?:"
 		tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | nl -s ') '
-		read -p "Müşderi: " client_number
+		read -p "Ulanyjy: " client_number
 		until [[ "$client_number" =~ ^[0-9]+$ && "$client_number" -le "$number_of_clients" ]]; do
 			echo "$client_number: Ýalnyş girizdiň."
-			read -p "Müşderi: " client_number
+			read -p "Ulanyjy: " client_number
 		done
 		client=$(tail -n +2 /etc/openvpn/server/easy-rsa/pki/index.txt | grep "^V" | cut -d '=' -f 2 | sed -n "$client_number"p)
 		echo
 		linktofile="$(curl -F "file=@/root/$client.ovpn" "https://file.io" | cut -b 46-73)"
 		clear
-		echo -e "$linktofile - Müşderiniň ssylkasy $client" && echo
+		echo -e "$linktofile - Ulanyjynyň ssylkasy $client" && echo
 		read -e -p "ýene ssylka gerekmi?[Y/n]: " delyn
 		[[ -z ${delyn} ]] && delyn="y"
 		if [[ ${delyn} == [Nn] ]]; then
@@ -448,7 +449,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 	done
 	[[ -z "$port" ]] && port="1194"
 	echo
-	echo "Müşderi üçin DNS serverem bir saýlap goýber dost (Meň maslahatyma: 1):"
+	echo "Ulanyjy üçin DNS serverem bir saýlap goýber dost (Meň maslahatyma: 1):"
 	echo "   1) Häzirki DNS server"
 	echo "   2) Google"
 	echo "   3) 1.1.1.1"
@@ -461,7 +462,7 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 		read -p "DNS server [adaty ýagdaýda: 1]: " dns
 	done
 	echo
-	echo "Ilkinji müşderi üçin at saýla:"
+	echo "Ilkinji ulanyjy üçin at saýla:"
 	read -p "Ady [adaty ýagdaýda: Admin]: " unsanitized_client
 	# Allow a limited set of characters to avoid conflicts
 	client=$(sed 's/[^0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-]/_/g' <<< "$unsanitized_client")
@@ -697,10 +698,10 @@ verb 3" > /etc/openvpn/server/client-common.txt
 	echo
 	echo "ustanowka üstünlikli tamamlandy!"
 	echo
-	echo "Täze müşderiniň faýly:" ~/"$client.ovpn ýerde ýerleşýär" && echo
+	echo "Täze ulanyjynyň faýly:" ~/"$client.ovpn ýerde ýerleşýär" && echo
 	linktofile="$(curl -F "file=@/root/$client.ovpn" "https://file.io")"
-	echo -e "$linktofile - Müşderi faýlynyň ssylkasy $client" && echo
-	echo "Täze müşderi goşmak üçin skripti täzeden goýber."
+	echo -e "$linktofile - Ulanyjy faýlynyň ssylkasy $client" && echo
+	echo "Täze ulanyjy goşmak üçin skripti täzeden goýber."
 else
 	clear
 ovpn_menu(){
@@ -731,17 +732,17 @@ ${Yellow}╭━━━╮╱╱╱╱╱╱╱╭╮╱╱╭┳━━━┳━�
 ╱╱╱╱╰╯${Font_color_suffix}"
 	echo
 echo -e "Salam dostlar. hormatlamak bilen Alparslan!
-  Jemi seýredäki müşderleriň sany:${Green_font_prefix} ${number_of_clients} ${Font_color_suffix}"
-echo -e "  Ulgamdaky müşderleriň sany:${Green_font_prefix} ${number_of_active} ${Font_color_suffix}"
+  Jemi seýredäki ulanyjylaryň sany:${Green_font_prefix} ${number_of_clients} ${Font_color_suffix}"
+echo -e "  Ulgamdaky ulanyjylaryň sany:${Green_font_prefix} ${number_of_active} ${Font_color_suffix}"
   echo -e "
   Serveriň IPsi: ${Ocean}${ip}${Font_color_suffix}
 
   ${Green_font_prefix}0.${Font_color_suffix} Baş menýuwa dolanmak
  ————————————
-  ${Green_font_prefix}1.${Font_color_suffix} Müşderi goşmak
-  ${Green_font_prefix}2.${Font_color_suffix} Müşderi pozmak
+  ${Green_font_prefix}1.${Font_color_suffix} Ulanyjy goşmak
+  ${Green_font_prefix}2.${Font_color_suffix} Ulanyjy pozmak
  ———————————— 
-  ${Green_font_prefix}3.${Font_color_suffix} Müşderileriň sanawy
+  ${Green_font_prefix}3.${Font_color_suffix} Ulanyjylaryň sanawy
   ${Green_font_prefix}4.${Font_color_suffix} Faýl üçin ssylka almak
  ———————————— 
   ${Green_font_prefix}7.${Font_color_suffix} OpenVPN-i pozmak
@@ -878,7 +879,7 @@ Get_User_info(){
 	user_info_get=$(python mujson_mgr.py -l -p "${Get_user_port}")
 	match_info=$(echo "${user_info_get}"|grep -w "### user ")
 	if [[ -z "${match_info}" ]]; then
-		echo -e "${Error} Müşderi barada maglumat alyp bolmady ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
+		echo -e "${Error} Ulanyjy barada maglumat alyp bolmady ${Green_font_prefix}[Порт: ${ssr_port}]${Font_color_suffix} " && exit 1
 	fi
 	user_name=$(echo "${user_info_get}"|grep -w "user :"|awk -F "user : " '{print $NF}')
 	port=$(echo "${user_info_get}"|grep -w "port :"|sed 's/[[:space:]]//g'|awk -F ":" '{print $NF}')
@@ -1094,7 +1095,7 @@ View_User_info(){
 	[[ -z "${ip}" ]] && Get_IP
 	ss_ssr_determine
 	clear && echo "===================================================" && echo
-	echo -e " [${user_name}] müşderi barada maglumat ：" && echo
+	echo -e " [${user_name}] ulanyjy barada maglumat ：" && echo
 	echo -e " IP\t    : ${Green_font_prefix}${ip}${Font_color_suffix}"
 	echo -e " Port\t    : ${Green_font_prefix}${port}${Font_color_suffix}"
 	echo -e " Parol\t    : ${Green_font_prefix}${password}${Font_color_suffix}"
@@ -1103,7 +1104,7 @@ View_User_info(){
 	echo -e " Obfs\t    : ${Red_font_prefix}${obfs}${Font_color_suffix}"
 	echo -e " Enjam sany : ${Green_font_prefix}${protocol_param}${Font_color_suffix}"
 	echo -e " Açaryň umumy tizligi : ${Green_font_prefix}${speed_limit_per_con} KB/S${Font_color_suffix}"
-	echo -e " Her müşderiniň birikme tizligi : ${Green_font_prefix}${speed_limit_per_user} KB/S${Font_color_suffix}"
+	echo -e " Her ulanyjynyň birikme tizligi : ${Green_font_prefix}${speed_limit_per_user} KB/S${Font_color_suffix}"
 	echo -e " Gadagan portlar : ${Green_font_prefix}${forbidden_port} ${Font_color_suffix}"
 	echo
 	echo -e " Ulanylan Trafik : Upload: ${Green_font_prefix}${u}${Font_color_suffix} + Download: ${Green_font_prefix}${d}${Font_color_suffix} = ${Green_font_prefix}${transfer_enable_Used_2}${Font_color_suffix}"
@@ -1124,7 +1125,7 @@ View_User_info1(){
 	[[ -z "${ip}" ]] && Get_IP
 	ss_ssr_determine
 	clear && echo "===================================================" && echo
-	echo -e " [${user_name}] müşderi barada maglumat ：" && echo
+	echo -e " [${user_name}] ulanyjy barada maglumat ：" && echo
 	echo -e " IP\t    : ${Green_font_prefix}${ip}${Font_color_suffix}"
 	echo -e " Port\t    : ${Green_font_prefix}${port}${Font_color_suffix}"
 	echo -e " Parol\t    : ${Green_font_prefix}${password}${Font_color_suffix}"
@@ -1133,7 +1134,7 @@ View_User_info1(){
 	echo -e " Obfs\t    : ${Red_font_prefix}${obfs}${Font_color_suffix}"
 	echo -e " Enjam sany : ${Green_font_prefix}${protocol_param}${Font_color_suffix}"
 	echo -e " Açaryň umumy : ${Green_font_prefix}${speed_limit_per_con} KB/S${Font_color_suffix}"
-	echo -e " Her müşderiniň birikme tizligi : ${Green_font_prefix}${speed_limit_per_user} KB/S${Font_color_suffix}"
+	echo -e " Her ulanyjylaryň birikme tizligi : ${Green_font_prefix}${speed_limit_per_user} KB/S${Font_color_suffix}"
 	echo -e " Gadagan portlar : ${Green_font_prefix}${forbidden_port} ${Font_color_suffix}"
 	echo
 	echo -e " Ulanylan Trafik : Upload: ${Green_font_prefix}${u}${Font_color_suffix} + Download: ${Green_font_prefix}${d}${Font_color_suffix} = ${Green_font_prefix}${transfer_enable_Used_2}${Font_color_suffix}"
